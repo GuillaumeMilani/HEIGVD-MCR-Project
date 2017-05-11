@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="iso-8859-15" standalone="no"?>
+<classDiagram>
+  <diagramElements defaultViewEntities="ALL" defaultViewEnum="true" defaultViewMethods="TYPE_AND_NAME" defaultVisibleTypes="true" informations="" name="">
+    <inheritance id="200">
+      <child>145</child>
+      <parent>2</parent>
+    </inheritance>
+    <inheritance id="199">
+      <child>96</child>
+      <parent>2</parent>
+    </inheritance>
+    <inheritance id="198">
+      <child>3</child>
+      <parent>1</parent>
+    </inheritance>
+    <inheritance id="197">
+      <child>44</child>
+      <parent>1</parent>
+    </inheritance>
+    <entity entityType="INTERFACE" id="145" isAbstract="true" name="VisitorTwo" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementOne"/>
+      </method>
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementTwo"/>
+      </method>
+    </entity>
+    <entity entityType="INTERFACE" id="96" isAbstract="true" name="VisitorOne" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementOne"/>
+      </method>
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementTwo"/>
+      </method>
+    </entity>
+    <entity entityType="CLASS" id="44" isAbstract="false" name="ElementOne" visibility="PUBLIC">
+      <method isAbstract="false" isStatic="false" name="accept" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="v" type="Visitor"/>
+      </method>
+    </entity>
+    <entity entityType="CLASS" id="3" isAbstract="false" name="ElementTwo" visibility="PUBLIC">
+      <method isAbstract="false" isStatic="false" name="accept" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="v" type="Visitor"/>
+      </method>
+    </entity>
+    <entity entityType="INTERFACE" id="2" isAbstract="true" name="Visitor" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementOne"/>
+      </method>
+      <method isAbstract="true" isStatic="false" name="visit" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="e" type="ElementTwo"/>
+      </method>
+    </entity>
+    <entity entityType="INTERFACE" id="1" isAbstract="true" name="Element" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="accept" returnType="void" view="TYPE_AND_NAME" visibility="PUBLIC">
+        <variable const="false" name="v" type="Visitor"/>
+      </method>
+    </entity>
+  </diagramElements>
+  <umlView grid="10" name="Main view" open="true">
+    <relationView color="-12566464" relationId="197">
+      <line>
+        <point>
+          <x>261</x>
+          <y>271</y>
+        </point>
+        <point>
+          <x>261</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>381</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>381</x>
+          <y>155</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="198">
+      <line>
+        <point>
+          <x>481</x>
+          <y>271</y>
+        </point>
+        <point>
+          <x>481</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>381</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>381</x>
+          <y>155</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="199">
+      <line>
+        <point>
+          <x>681</x>
+          <y>271</y>
+        </point>
+        <point>
+          <x>681</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>811</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>811</x>
+          <y>170</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="200">
+      <line>
+        <point>
+          <x>921</x>
+          <y>271</y>
+        </point>
+        <point>
+          <x>921</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>811</x>
+          <y>231</y>
+        </point>
+        <point>
+          <x>811</x>
+          <y>170</y>
+        </point>
+      </line>
+    </relationView>
+    <componentView color="-2079" componentID="1" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>300</x>
+        <y>80</y>
+        <w>160</w>
+        <h>74</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="2" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>720</x>
+        <y>80</y>
+        <w>180</w>
+        <h>89</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="3" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>400</x>
+        <y>270</y>
+        <w>160</w>
+        <h>60</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="44" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>180</x>
+        <y>270</y>
+        <w>160</w>
+        <h>60</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="96" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>590</x>
+        <y>270</y>
+        <w>180</w>
+        <h>89</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="145" displayAttributes="false" displayDefault="false" displayMethods="true">
+      <geometry>
+        <x>830</x>
+        <y>270</y>
+        <w>180</w>
+        <h>89</h>
+      </geometry>
+    </componentView>
+    <note color="-2079" content="v.visit(this);">
+      <noteGeometry>
+        <x>70</x>
+        <y>320</y>
+        <w>90</w>
+        <h>30</h>
+      </noteGeometry>
+    </note>
+  </umlView>
+</classDiagram>

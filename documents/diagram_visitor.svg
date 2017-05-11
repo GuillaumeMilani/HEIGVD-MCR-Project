@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="49mm" y="40mm" width="982mm" height="340mm" viewBox="49 40 982 340">
+<style type="text/css"><![CDATA[
+text { font:12px Dialog; }
+]]></style>
+<line x1="260" y1="270" x2="260" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="260" y1="230" x2="380" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="380" y1="230" x2="380" y2="154" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<polygon points="380,154 388,174 372,174" style="fill:rgb(255,255,255);stroke:none" />
+<polygon points="380,154 388,174 372,174" style="fill:none;stroke:rgb(64,64,64);stroke-linecap:square" />
+<line x1="480" y1="270" x2="480" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="480" y1="230" x2="380" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="380" y1="230" x2="380" y2="154" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<polygon points="380,154 388,174 372,174" style="fill:rgb(255,255,255);stroke:none" />
+<polygon points="380,154 388,174 372,174" style="fill:none;stroke:rgb(64,64,64);stroke-linecap:square" />
+<line x1="680" y1="270" x2="680" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="680" y1="230" x2="810" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="810" y1="230" x2="810" y2="169" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<polygon points="810,169 818,189 802,189" style="fill:rgb(255,255,255);stroke:none" />
+<polygon points="810,169 818,189 802,189" style="fill:none;stroke:rgb(64,64,64);stroke-linecap:square" />
+<line x1="920" y1="270" x2="920" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="920" y1="230" x2="810" y2="230" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<line x1="810" y1="230" x2="810" y2="169" style="fill:none;stroke:rgb(64,64,64);stroke-dasharray:7;stroke-dashoffset:0" />
+<polygon points="810,169 818,189 802,189" style="fill:rgb(255,255,255);stroke:none" />
+<polygon points="810,169 818,189 802,189" style="fill:none;stroke:rgb(64,64,64);stroke-linecap:square" />
+<rect x="300" y="80" width="160" height="73" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="300" y="80" width="160" height="73" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="342" y="99" style="font:11px Ubuntu">&lt;&lt; interface &gt;&gt;</text>
+<text x="357" y="116" style="font:12px Ubuntu">Element</text>
+<line x1="300" y1="129" x2="460" y2="129" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="308" y="144" style="font:12px Ubuntu">+ accept (v : Visitor) : void</text>
+<rect x="720" y="80" width="180" height="87" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="720" y="80" width="180" height="87" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="772" y="99" style="font:11px Ubuntu">&lt;&lt; interface &gt;&gt;</text>
+<text x="792" y="116" style="font:12px Ubuntu">Visitor</text>
+<line x1="720" y1="129" x2="900" y2="129" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="728" y="144" style="font:12px Ubuntu">+ visit (e : ElementOne) : void</text>
+<text x="728" y="158" style="font:12px Ubuntu">+ visit (e : ElementTwo) : void</text>
+<rect x="400" y="270" width="160" height="59" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="400" y="270" width="160" height="59" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="445" y="292" style="font:12px Ubuntu">ElementTwo</text>
+<line x1="400" y1="305" x2="560" y2="305" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="408" y="320" style="font:12px Ubuntu">+ accept (v : Visitor) : void</text>
+<rect x="180" y="270" width="160" height="59" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="180" y="270" width="160" height="59" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="225" y="292" style="font:12px Ubuntu">ElementOne</text>
+<line x1="180" y1="305" x2="340" y2="305" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="188" y="320" style="font:12px Ubuntu">+ accept (v : Visitor) : void</text>
+<rect x="590" y="270" width="180" height="87" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="590" y="270" width="180" height="87" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="642" y="289" style="font:11px Ubuntu">&lt;&lt; interface &gt;&gt;</text>
+<text x="650" y="306" style="font:12px Ubuntu">VisitorOne</text>
+<line x1="590" y1="319" x2="770" y2="319" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="598" y="334" style="font:12px Ubuntu">+ visit (e : ElementOne) : void</text>
+<text x="598" y="348" style="font:12px Ubuntu">+ visit (e : ElementTwo) : void</text>
+<rect x="830" y="270" width="180" height="87" style="fill:rgb(255,247,225);stroke:none" />
+<rect x="830" y="270" width="180" height="87" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="882" y="289" style="font:11px Ubuntu">&lt;&lt; interface &gt;&gt;</text>
+<text x="890" y="306" style="font:12px Ubuntu">VisitorTwo</text>
+<line x1="830" y1="319" x2="1010" y2="319" style="fill:none;stroke:rgb(65,65,65);stroke-width:1.2;stroke-linecap:square" />
+<text x="838" y="334" style="font:12px Ubuntu">+ visit (e : ElementOne) : void</text>
+<text x="838" y="348" style="font:12px Ubuntu">+ visit (e : ElementTwo) : void</text>
+<polygon points="70,320 147,320 162,335 162,350 70,350" style="fill:rgb(255,247,225);stroke:none" />
+<polygon points="70,320 147,320 162,335 162,350 70,350" style="fill:none;stroke:rgb(64,64,64);stroke-width:1.2;stroke-linecap:square" />
+<line x1="147" y1="320" x2="147" y2="335" style="fill:none;stroke:rgb(64,64,64);stroke-width:1.2;stroke-linecap:square" />
+<line x1="147" y1="335" x2="162" y2="335" style="fill:none;stroke:rgb(64,64,64);stroke-width:1.2;stroke-linecap:square" />
+<text x="75" y="340" style="font:12px Ubuntu">v.visit(this); </text>
+<rect x="50" y="41" width="979" height="337" style="fill:none;stroke:rgb(64,64,64);stroke-linecap:square" />
+</svg>
