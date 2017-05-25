@@ -1,5 +1,7 @@
 package game.element.bonus;
 
+import game.Constantes;
+
 /**
  *
  * @author Gabriel Luthier
@@ -7,6 +9,7 @@ package game.element.bonus;
 public class Toilette extends Bonus {
 
     public Toilette() {
-        super(0, 1.3);
+        super(Constantes.Bonus.Toilette.soin,
+                Constantes.Bonus.Toilette.facteurAccelere);
     }
 }

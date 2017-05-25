@@ -1,7 +1,7 @@
 package game.visteur;
 
 import game.element.bonus.Bonus;
-import game.element.obstacle.Obstacle;
+import game.element.malus.Malus;
 
 /**
  *
@@ -9,7 +9,7 @@ import game.element.obstacle.Obstacle;
  */
 public interface Visiteur {
 
-    public void visite(Obstacle o);
+    public void visite(Malus o);
     
     public void visite(Bonus b);
 }

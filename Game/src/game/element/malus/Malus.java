@@ -1,4 +1,4 @@
-package game.element.obstacle;
+package game.element.malus;
 
 import game.element.Element;
 import game.visteur.Visiteur;
@@ -7,12 +7,12 @@ import game.visteur.Visiteur;
  *
  * @author Gabriel Luthier
  */
-public abstract class Obstacle implements Element {
+public abstract class Malus implements Element {
 
     private double degat;
     private double facteurRalenti;
 
-    public Obstacle(double degat, double facteurRalenti) {
+    public Malus(double degat, double facteurRalenti) {
         this.degat = degat;
         this.facteurRalenti = facteurRalenti;
     }

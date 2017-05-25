@@ -1,5 +1,7 @@
 package game.element.bonus;
 
+import game.Constantes;
+
 /**
  *
  * @author Gabriel Luthier
@@ -7,6 +9,7 @@ package game.element.bonus;
 public class Potion extends Bonus {
 
     public Potion() {
-        super(1.3, 0);
+        super(Constantes.Bonus.Potion.soin,
+                Constantes.Bonus.Potion.facteurAccelere);
     }
 }

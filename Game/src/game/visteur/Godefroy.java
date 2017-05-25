@@ -1,5 +1,7 @@
 package game.visteur;
 
+import game.Constantes;
+
 /**
  *
  * @author Gabriel Luthier
@@ -7,8 +9,12 @@ package game.visteur;
 public class Godefroy extends Joueur {
 
     public Godefroy() {
-        super("Godefroy", 0.6, 120,
-                0.8, 1.2,
-                "godefroy.png");
+        super(Constantes.Joueurs.Godfroy.nom,
+                Constantes.Joueurs.Godfroy.baseVitesse,
+                Constantes.Joueurs.Godfroy.maxVie,
+                Constantes.Joueurs.Godfroy.facteurVitesse,
+                Constantes.Joueurs.Godfroy.facteurVie,
+                Constantes.Joueurs.Godfroy.position,
+                Constantes.Joueurs.Godfroy.imageNomFichier);
     }
 }
