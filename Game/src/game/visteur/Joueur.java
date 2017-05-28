@@ -23,7 +23,7 @@ public abstract class Joueur extends ImageView implements Visiteur {
     private final double facteurVitesse;
     private final double facteurVie;
     
-    private final String imageNomFichier;
+    private final Image image;
 
     public Joueur(String nom, double baseVitesse, double maxVie,
             double facteurVitesse, double facteurVie,
@@ -37,15 +37,12 @@ public abstract class Joueur extends ImageView implements Visiteur {
         this.position = position;
         this.facteurVitesse = facteurVitesse;
         this.facteurVie = facteurVie;
-        this.imageNomFichier = imageNomFichier;
         
-        Image image = new Image(getClass().getResource(imageNomFichier).toString(),
+        image = new Image(getClass().getResource(imageNomFichier).toString(),
                 Constantes.CELL_WIDTH, Constantes.CELL_WIDTH, true, true);
-        setImage(image);
         setX(position * Constantes.CELL_WIDTH);
         setY(Constantes.GAME_HEIGHT - Constantes.CELL_WIDTH);
-        System.out.println("x: " + this.getX());
-        System.out.println("y: " + this.getY());
+        setImage(image);
     }
 
     public boolean estEnVie() {
@@ -77,14 +74,12 @@ public abstract class Joueur extends ImageView implements Visiteur {
         int newPosition = position - 1;
         position = newPosition >= 0 ? newPosition : 0;
         setX(position * Constantes.CELL_WIDTH);
-        System.out.println("right: " + position);
     }
     
     public void moveRight() {
         int newPosition = position + 1;
-        position = newPosition < Constantes.NUM_COLS ? newPosition : Constantes.NUM_COLS;
+        position = newPosition < Constantes.NUM_COLS ? newPosition : Constantes.NUM_COLS-1;
         setX(position * Constantes.CELL_WIDTH);
-        System.out.println("right: " + position);
     }
 
     @Override

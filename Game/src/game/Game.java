@@ -5,6 +5,7 @@ import game.visteur.Jacquouille;
 import game.visteur.Joueur;
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,36 +23,36 @@ import javafx.stage.WindowEvent;
  * @author Gabriel Luthier
  */
 public class Game extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) {
-        StackPane root = new StackPane();
 
-        Scene scene = new Scene(root, Constantes.GAME_WIDTH, Constantes.GAME_HEIGHT);
+    private Image background;
+    private Joueur joueur1;
+    private Joueur joueur2;
+
+    @Override
+    public void start(Stage stage) {
+        Group root = new Group();
+        Scene scene = new Scene(root);
+
+        stage.setTitle("Visiteur");
+        stage.setScene(scene);
 
         Canvas canvas = new Canvas(Constantes.GAME_WIDTH, Constantes.GAME_HEIGHT);
+        canvas.setFocusTraversable(true);
 
-        Image background = new Image(
+        background = new Image(
                 getClass().getResource(Constantes.BACKGROUND_PATH).toString(),
                 Constantes.GAME_WIDTH,
                 Constantes.GAME_HEIGHT,
                 false, true);
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(background, 0, 0);
-
-        gc.setStroke(Color.WHITE);
-        gc.setLineWidth(1);
-
-        for (int i = 0; i < Constantes.NUM_COLS; i++) {
-            gc.strokeLine(i * Constantes.CELL_WIDTH, 0, i * Constantes.CELL_WIDTH, Constantes.GAME_HEIGHT);
-        }
-
-        canvas.setFocusTraversable(true);
-
-        Joueur joueur1 = new Jacquouille();
-        Joueur joueur2 = new Godefroy();
+        joueur1 = new Jacquouille();
+        joueur2 = new Godefroy();
         
+        root.getChildren().addAll(canvas, joueur1, joueur2);
+        
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        drawCanvas(gc);
+
         canvas.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             switch (event.getCode()) {
                 case A:
@@ -69,21 +70,29 @@ public class Game extends Application {
                 default:
                     break;
             }
+            drawCanvas(gc);
         });
-        
-        gc.setFill(Color.BLUE);
-        gc.fillRect(0, 0, 200, 300);
-        
-        root.getChildren().addAll(canvas, joueur1, joueur2);
 
-        primaryStage.setTitle("Visiteur");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        primaryStage.setOnCloseRequest((WindowEvent event) -> {
+        stage.setOnCloseRequest((WindowEvent event) -> {
             // Stop Clock Thread
             Clock.getInstance().stop();
         });
+
+        stage.show();
+    }
+
+    public void drawCanvas(GraphicsContext gc) {
+        gc.drawImage(background, 0, 0);
+
+        gc.setStroke(Color.WHITE);
+        gc.setLineWidth(1);
+
+        for (int i = 0; i < Constantes.NUM_COLS; i++) {
+            gc.strokeLine(i * Constantes.CELL_WIDTH, 0, i * Constantes.CELL_WIDTH, Constantes.GAME_HEIGHT);
+        }
+        
+        gc.drawImage(joueur1.getImage(), joueur1.getX(), joueur1.getY());
+        gc.drawImage(joueur2.getImage(), joueur2.getX(), joueur2.getY());
     }
 
     /**
