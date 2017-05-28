@@ -9,7 +9,8 @@ import game.Constantes;
 public class Voiture extends Malus {
 
     public Voiture() {
-        super(Constantes.Malus.Voiture.degat,
-                Constantes.Malus.Voiture.facteurRalenti);
+        super(Constantes.Malus.Voiture.degats,
+                Constantes.Malus.Voiture.points,
+                Constantes.Malus.Voiture.imageNomFichier);
     }
 }

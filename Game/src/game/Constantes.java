@@ -1,76 +1,75 @@
 package game;
 
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Map;
-import javafx.scene.input.KeyCode;
-import game.action.Action;
-import game.action.Mouvement;
-import static javafx.scene.input.KeyCode.A;
-
 /**
  *
  * @author Gabriel Luthier
  */
 public class Constantes {
 
+    public static final String GAME_TITLE = "Visiteur";
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
     public static final int NUM_COLS = 10;
-    public static final double CELL_WIDTH = (double) GAME_WIDTH / (double) NUM_COLS;
-    public static final int CLOCK_CYCLE = 50;
+    public static final double CELL_SIZE = (double) GAME_WIDTH / (double) NUM_COLS;
+    public static final double ICON_SIZE = CELL_SIZE / 3;
+    public static final int TEMPS_PARTIE_SECONDES = 30;
+    public static final int NUM_BONUS = 8;
+    public static final int NUM_MALUS = 12;
+    public static final int NUM_OBSTACLES = NUM_BONUS + NUM_MALUS;
     public static final String BACKGROUND_PATH = "/resources/images/field.png";
 
     public static enum Bonus {
-        Potion(1.3, 0),
-        Toilette(0, 1.3);
+        Potion(10, 100, "/resources/images/potion.png"),
+        Toilette(30, 200, "/resources/images/toilette.png");
 
-        public double soin;
-        public double facteurAccelere;
+        public int soins;
+        public int points;
+        public String imageNomFichier;
 
-        private Bonus(double soin, double facteurAccelere) {
-            this.soin = soin;
-            this.facteurAccelere = facteurAccelere;
+        private Bonus(int soins, int points, String imageNomFichier) {
+            this.soins = soins;
+            this.points = points;
+            this.imageNomFichier = imageNomFichier;
         }
     }
 
     public static enum Malus {
-        Flaque(1.2, 0),
-        Voiture(0, 1.4);
+        Flaque(-10, -80, "/resources/images/flaque.png"),
+        Voiture(-40, -150, "/resources/images/voiture.png");
 
-        public double degat;
-        public double facteurRalenti;
+        public int degats;
+        public int points;
+        public String imageNomFichier;
 
-        private Malus(double degat, double facteurRalenti) {
-            this.degat = degat;
-            this.facteurRalenti = facteurRalenti;
+        private Malus(int degats, int points, String imageNomFichier) {
+            this.degats = degats;
+            this.points = points;
+            this.imageNomFichier = imageNomFichier;
         }
     }
 
     public static enum Joueurs {
-        Jacquouille("Jacquouille", 0.7, 100,
-                1.2, 0.8,
+        Jacquouille("Jacquouille", 100,
+                1, 1.5,
                 2, "/resources/images/jacquouille.png"),
-        Godfroy("Godefroy", 0.6, 120,
-                0.8, 1.2,
+        Godefroy("Godefroy", 120,
+                1.5, 1,
                 7, "/resources/images/godefroy.png");
 
         public String nom;
-        public double baseVitesse;
-        public double maxVie;
-        public double facteurVitesse;
+        public int maxVie;
         public double facteurVie;
+        public double facteurScore;
         public int position;
         public String imageNomFichier;
 
-        private Joueurs(String nom, double baseVitesse, double maxVie,
-                double facteurVitesse, double facteurVie,
+        private Joueurs(String nom, int maxVie,
+                double facteurVie, double facteurScore,
                 int position, String imageNomFichier) {
             this.nom = nom;
-            this.baseVitesse = baseVitesse;
             this.maxVie = maxVie;
-            this.facteurVitesse = facteurVitesse;
             this.facteurVie = facteurVie;
+            this.facteurScore = facteurScore;
             this.position = position;
             this.imageNomFichier = imageNomFichier;
         }

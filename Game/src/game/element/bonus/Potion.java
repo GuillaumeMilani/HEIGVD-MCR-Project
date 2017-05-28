@@ -9,7 +9,8 @@ import game.Constantes;
 public class Potion extends Bonus {
 
     public Potion() {
-        super(Constantes.Bonus.Potion.soin,
-                Constantes.Bonus.Potion.facteurAccelere);
+        super(Constantes.Bonus.Potion.soins,
+                Constantes.Bonus.Potion.points,
+                Constantes.Bonus.Potion.imageNomFichier);
     }
 }

@@ -1,28 +1,31 @@
 package game.element.bonus;
 
-import game.element.Element;
+import game.element.Obstacle;
 import game.visteur.Visiteur;
 
 /**
  *
  * @author Gabriel Luthier
  */
-public abstract class Bonus implements Element {
+public abstract class Bonus extends Obstacle {
 
-    private double soin;
-    private double facteurAccelere;
+    private final int soins;
+    private final int points;
     
-    public Bonus(double soin, double facteurAccelere) {
-        this.soin = soin;
-        this.facteurAccelere = facteurAccelere;
+    public Bonus(int soins, int points, String imageNomFichier) {
+        super(imageNomFichier);
+        this.soins = soins;
+        this.points = points;
     }
     
-    public double getSoin() {
-        return soin;
+    @Override
+    public int getModifVie() {
+        return soins;
     }
     
-    public double getFacteurAccelere() {
-        return facteurAccelere;
+    @Override
+    public int getPoints() {
+        return points;
     }
         
     @Override

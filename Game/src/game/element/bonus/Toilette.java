@@ -9,7 +9,8 @@ import game.Constantes;
 public class Toilette extends Bonus {
 
     public Toilette() {
-        super(Constantes.Bonus.Toilette.soin,
-                Constantes.Bonus.Toilette.facteurAccelere);
+        super(Constantes.Bonus.Toilette.soins,
+                Constantes.Bonus.Toilette.points,
+                Constantes.Bonus.Toilette.imageNomFichier);
     }
 }

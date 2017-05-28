@@ -9,12 +9,11 @@ import game.Constantes;
 public class Godefroy extends Joueur {
 
     public Godefroy() {
-        super(Constantes.Joueurs.Godfroy.nom,
-                Constantes.Joueurs.Godfroy.baseVitesse,
-                Constantes.Joueurs.Godfroy.maxVie,
-                Constantes.Joueurs.Godfroy.facteurVitesse,
-                Constantes.Joueurs.Godfroy.facteurVie,
-                Constantes.Joueurs.Godfroy.position,
-                Constantes.Joueurs.Godfroy.imageNomFichier);
+        super(Constantes.Joueurs.Godefroy.nom,
+                Constantes.Joueurs.Godefroy.maxVie,
+                Constantes.Joueurs.Godefroy.facteurVie,
+                Constantes.Joueurs.Godefroy.facteurScore,
+                Constantes.Joueurs.Godefroy.position,
+                Constantes.Joueurs.Godefroy.imageNomFichier);
     }
 }

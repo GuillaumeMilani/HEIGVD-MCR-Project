@@ -9,7 +9,8 @@ import game.Constantes;
 public class Flaque extends Malus {
 
     public Flaque() {
-        super(Constantes.Malus.Flaque.degat,
-                Constantes.Malus.Flaque.facteurRalenti);
+        super(Constantes.Malus.Flaque.degats,
+                Constantes.Malus.Flaque.points,
+                Constantes.Malus.Flaque.imageNomFichier);
     }
 }

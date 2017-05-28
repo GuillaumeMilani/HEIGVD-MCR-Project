@@ -1,30 +1,33 @@
 package game.element.malus;
 
-import game.element.Element;
+import game.element.Obstacle;
 import game.visteur.Visiteur;
 
 /**
  *
  * @author Gabriel Luthier
  */
-public abstract class Malus implements Element {
+public abstract class Malus extends Obstacle {
 
-    private double degat;
-    private double facteurRalenti;
+    private final int degats;
+    private final int points;
 
-    public Malus(double degat, double facteurRalenti) {
-        this.degat = degat;
-        this.facteurRalenti = facteurRalenti;
+    public Malus(int degats, int points, String imageNomFichier) {
+        super(imageNomFichier);
+        this.degats = degats;
+        this.points = points;
     }
 
-    public double getDegat() {
-        return degat;
+    @Override
+    public int getModifVie() {
+        return degats;
     }
-
-    public double getFacteurRalenti() {
-        return facteurRalenti;
+    
+    @Override
+    public int getPoints() {
+        return points;
     }
-
+    
     @Override
     public void accept(Visiteur v) {
         v.visite(this);
