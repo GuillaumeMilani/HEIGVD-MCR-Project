@@ -1,13 +1,19 @@
 package game;
 
 import game.element.Obstacle;
+import game.element.bonus.Pain;
 import game.element.bonus.Potion;
+import game.element.bonus.Salade;
+import game.element.bonus.Sandwich;
 import game.element.bonus.Toilette;
+import game.element.bonus.Tomate;
+import game.element.bonus.Viande;
 import game.element.malus.Flaque;
 import game.element.malus.Voiture;
 import game.visiteur.Godefroy;
 import game.visiteur.Jacquouille;
 import game.visiteur.Joueur;
+import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -18,7 +24,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -123,12 +128,35 @@ public class Game extends Application {
 
         obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
 
+        Random random = new Random();
+
         for (int i = 0; i < Constantes.NUM_BONUS; i++) {
             Obstacle o;
-            if (Math.random() < 0.5) {
-                o = initialiseObstacle(new Potion());
-            } else {
-                o = initialiseObstacle(new Toilette());
+            switch (random.nextInt(7)) {
+                case 0:
+                    o = initialiseObstacle(new Potion());
+                    break;
+                case 1:
+                    o = initialiseObstacle(new Toilette());
+                    break;
+                case 2:
+                    o = initialiseObstacle(new Sandwich());
+                    break;
+                case 3:
+                    o = initialiseObstacle(new Pain());
+                    break;
+                case 4:
+                    o = initialiseObstacle(new Salade());
+                    break;
+                case 5:
+                    o = initialiseObstacle(new Tomate());
+                    break;
+                case 6:
+                    o = initialiseObstacle(new Viande());
+                    break;
+                default:
+                    o = initialiseObstacle(new Toilette());
+                    break;
             }
             obstacles.add(o);
             groupeObstacles.getChildren().add(o);

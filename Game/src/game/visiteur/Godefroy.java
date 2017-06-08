@@ -1,8 +1,7 @@
 package game.visiteur;
 
 import game.Constantes;
-import game.element.bonus.Potion;
-import game.element.bonus.Toilette;
+import game.element.bonus.*;
 import game.element.malus.Flaque;
 import game.element.malus.Voiture;
 
@@ -39,5 +38,25 @@ public class Godefroy extends Joueur {
     public void visite(Voiture v) {
         modifieVie(-40);
         modifieScore(-150);
+    }
+
+    public void visite(Pain p) {
+        modifieVie(1);
+        modifieScore(10);
+    }
+
+    public void visite(Salade p) {
+        modifieVie(2);
+        modifieScore(20);
+    }
+
+    public void visite(Tomate p) {
+        modifieVie(3);
+        modifieScore(30);
+    }
+
+    public void visite(Viande p) {
+        modifieVie(4);
+        modifieScore(40);
     }
 }

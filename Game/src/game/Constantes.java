@@ -24,7 +24,12 @@ public class Constantes {
 
     public static enum Bonus {
         Potion("/resources/images/potion.png"),
-        Toilette("/resources/images/toilette.png");
+        Toilette("/resources/images/toilette.png"),
+        Sandwich("/resources/images/sandwich.png"),
+        Pain("/resources/images/pain.png"),
+        Salade("/resources/images/salade.png"),
+        Tomate("/resources/images/tomate.png"),
+        Viande("/resources/images/viande.png");
 
         public String imageNomFichier;
 
