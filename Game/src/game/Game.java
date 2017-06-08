@@ -132,27 +132,30 @@ public class Game extends Application {
         final long startNanoTime = System.nanoTime();
 
         timer = new AnimationTimer() {
+            long ancienneNano = 0;
             @Override
             public void handle(long currentNanoTime) {
-                long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
+                if (currentNanoTime - ancienneNano > 2000000*(10-Constantes.GAME_SPEED)) {
+                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
+                    if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
+                        arreterJeu();
+                    } else {
+                        double t = Math.log(1 + (secondesEcoule * 10));
 
-                if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
-                    arreterJeu();
-                } else {
-                    double t = Math.log(1 + (secondesEcoule * 10));
+                        obstacles.forEach((o) -> {
+                            o.setY(o.getY() + t);
 
-                    obstacles.forEach((o) -> {
-                        o.setY(o.getY() + t);
+                            if (o.getY() > Constantes.GAME_HEIGHT) {
+                                do {
+                                    o.nouvelleRandomPosition();
+                                } while (checkObstacleDejaPresent(o));
+                            }
+                        });
 
-                        if (o.getY() > Constantes.GAME_HEIGHT) {
-                            do {
-                                o.nouvelleRandomPosition();
-                            } while (checkObstacleDejaPresent(o));
-                        }
-                    });
-
-                    drawCanvas();
-                    checkCollision();
+                        drawCanvas();
+                        checkCollision();
+                    }
+                    ancienneNano = currentNanoTime;
                 }
             }
         };

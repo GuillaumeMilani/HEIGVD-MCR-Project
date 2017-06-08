@@ -17,6 +17,7 @@ public class Constantes {
     public static final int NUM_MALUS = 12;
     public static final int NUM_OBSTACLES = NUM_BONUS + NUM_MALUS;
     public static final String BACKGROUND_PATH = "/resources/images/field.png";
+    public static final long GAME_SPEED = 4; // 1 = slow, 10 = fast
 
     public static enum Bonus {
         Potion(10, 100, "/resources/images/potion.png"),
