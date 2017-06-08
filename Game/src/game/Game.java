@@ -43,7 +43,6 @@ public class Game extends Application {
     private Joueur joueur1;
     private Joueur joueur2;
 
-    private GraphicsContext gc;
     private AnimationTimer timer;
     private boolean gameEnCours = true;
 
@@ -55,7 +54,6 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) {
-        BorderPane bp = new BorderPane();
         root = new Group();
         groupeObstacles = new Group();
 
@@ -63,10 +61,6 @@ public class Game extends Application {
 
         stage.setTitle(Constantes.GAME_TITLE);
         stage.setScene(scene);
-
-        Canvas canvas = new Canvas(Constantes.GAME_WIDTH, Constantes.GAME_HEIGHT);
-
-        canvas.setFocusTraversable(true);
 
         joueur1 = new Jacquouille();
         joueur2 = new Godefroy();
@@ -203,7 +197,7 @@ public class Game extends Application {
 
         stage.show();
     }
-    
+
     public void restart(Stage stage) {
         stage.close();
         gameEnCours = true;
