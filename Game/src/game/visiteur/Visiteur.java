@@ -1,4 +1,4 @@
-package game.visteur;
+package game.visiteur;
 
 import game.element.Obstacle;
 

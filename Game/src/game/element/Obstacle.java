@@ -1,7 +1,7 @@
 package game.element;
 
 import game.Constantes;
-import game.visteur.Joueur;
+import game.visiteur.Joueur;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;

@@ -1,6 +1,6 @@
 package game.element;
 
-import game.visteur.Visiteur;
+import game.visiteur.Visiteur;
 
 /**
  *

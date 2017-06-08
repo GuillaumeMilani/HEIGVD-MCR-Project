@@ -1,7 +1,7 @@
 package game.element.bonus;
 
 import game.element.Obstacle;
-import game.visteur.Visiteur;
+import game.visiteur.Visiteur;
 
 /**
  *
