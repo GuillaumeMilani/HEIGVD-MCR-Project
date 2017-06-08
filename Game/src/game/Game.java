@@ -8,9 +8,8 @@ import game.element.malus.Voiture;
 import game.visiteur.Godefroy;
 import game.visiteur.Jacquouille;
 import game.visiteur.Joueur;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -26,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -203,7 +203,7 @@ public class Game extends Application {
 
         stage.show();
     }
-
+    
     public void restart(Stage stage) {
         stage.close();
         gameEnCours = true;
@@ -216,7 +216,7 @@ public class Game extends Application {
         afficherScores();
     }
 
-    public void afficherScores() {
+    private void afficherScores() {
         String gagnant;
         if (!joueur1.estEnVie()) {
             gagnant = joueur2.getNom();
@@ -235,7 +235,7 @@ public class Game extends Application {
         root.getChildren().add(textScore);
     }
 
-    public void drawScore() {
+    private void drawScore() {
         String joueur1Infos = "Vies: " + joueur1.getVie() + ", score: " + joueur1.getScore();
         String joueur2Infos = "Vies: " + joueur2.getVie() + ", score: " + joueur2.getScore();
 
@@ -243,7 +243,7 @@ public class Game extends Application {
         scoreJoueur2.setText(joueur2Infos);
     }
 
-    public Obstacle initialiseObstacle(Obstacle o) {
+    private Obstacle initialiseObstacle(Obstacle o) {
         while (checkObstacleDejaPresent(o)) {
             o.nouvelleRandomPosition();
         }
@@ -251,7 +251,7 @@ public class Game extends Application {
         return o;
     }
 
-    public boolean checkObstacleDejaPresent(Obstacle newO) {
+    private boolean checkObstacleDejaPresent(Obstacle newO) {
         for (Node o : groupeObstacles.getChildren()) {
             Obstacle ob = (Obstacle) o;
             if (!ob.equals(newO)
@@ -264,32 +264,31 @@ public class Game extends Application {
         return false;
     }
 
-    public void checkCollision() {
+    private void checkCollision() {
         groupeObstacles.getChildren().forEach((o) -> {
-            Obstacle ob = (Obstacle) o;
-            if (joueur1.getX() == ob.getX()
-                    && joueur1.getY() >= ob.getY()
-                    && joueur1.getY() < ob.getY() + Constantes.CELL_SIZE) {
-                if (!ob.aEteVisitePar(joueur1)) {
-                    ob.setVisite(joueur1);
-                    joueur1.visite(ob);
-                    drawScore();
-                }
-            }
-
-            if (joueur2.getX() == ob.getX()
-                    && joueur2.getY() >= ob.getY()
-                    && joueur2.getY() < ob.getY() + Constantes.CELL_SIZE) {
-                if (!ob.aEteVisitePar(joueur2)) {
-                    ob.setVisite(joueur2);
-                    joueur2.visite(ob);
-                    drawScore();
-                }
-            }
+            Obstacle ob = (Obstacle)o;
+                checkCollision(ob, joueur1);
+                checkCollision(ob, joueur2);
         });
 
         if (!joueur1.estEnVie() || !joueur2.estEnVie()) {
             arreterJeu();
+        }
+    }
+
+    private void checkCollision(Obstacle obstacle, Joueur joueur) {
+        if (joueur.getX() == obstacle.getX()
+                && joueur.getY() >= obstacle.getY()
+                && joueur.getY() < obstacle.getY() + Constantes.CELL_SIZE && !obstacle.aEteVisitePar(joueur)) {
+            obstacle.setVisite(joueur);
+            joueur.visite(obstacle);
+            FadeTransition ft = new FadeTransition();
+            ft.setNode(obstacle);
+            ft.setDuration(new Duration(200));
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            ft.play();
+            drawScore();
         }
     }
 
