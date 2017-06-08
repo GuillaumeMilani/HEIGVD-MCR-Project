@@ -2,6 +2,10 @@ package game.visiteur;
 
 import game.Constantes;
 import game.element.Obstacle;
+import game.element.bonus.Potion;
+import game.element.bonus.Toilette;
+import game.element.malus.Flaque;
+import game.element.malus.Voiture;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -71,6 +75,7 @@ public abstract class Joueur extends ImageView implements Visiteur {
     }
 
     public void modifieVie(double modif) {
+        modif *= facteurVie;
         int vieSupposee = (int) (vie + modif);
         vie = vieSupposee > 0
                 ? (vieSupposee < maxVie
@@ -80,14 +85,9 @@ public abstract class Joueur extends ImageView implements Visiteur {
     }
 
     public void modifieScore(double modif) {
+        modif *= facteurScore;
         int scoreSuppose = (int) (score + modif);
         score = scoreSuppose > 0
                 ? scoreSuppose : 0;
-    }
-
-    @Override
-    public void visite(Obstacle o) {
-        modifieVie(facteurVie * o.getModifVie());
-        modifieScore(facteurScore * o.getPoints());
     }
 }

@@ -8,5 +8,5 @@ import game.visiteur.Visiteur;
  */
 public interface Element {
 
-    public void accept(Visiteur v);
+    public void accepte(Visiteur v);
 }

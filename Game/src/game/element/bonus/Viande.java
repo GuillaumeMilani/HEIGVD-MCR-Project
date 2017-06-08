@@ -1,6 +1,7 @@
 package game.element.bonus;
 
 import game.Constantes;
+import game.visiteur.Visiteur;
 
 /**
  *
@@ -9,9 +10,11 @@ import game.Constantes;
 public class Viande extends SandwichElement {
 
     public Viande() {
-        super(Constantes.Bonus.Viande.soins,
-                Constantes.Bonus.Viande.points,
-                Constantes.Bonus.Viande.imageNomFichier);
+        super(Constantes.Bonus.Viande.imageNomFichier);
     }
 
+    @Override
+    public void accepte(Visiteur v) {
+        v.visite(this);
+    }
 }

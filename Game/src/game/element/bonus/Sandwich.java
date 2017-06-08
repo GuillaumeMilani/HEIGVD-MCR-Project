@@ -1,6 +1,8 @@
 package game.element.bonus;
 
 import game.Constantes;
+import game.visiteur.Visiteur;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,12 +12,10 @@ import java.util.List;
  */
 public class Sandwich extends Bonus {
 
-    List<SandwichElement> ingredients;
+    private List<SandwichElement> ingredients;
 
     public Sandwich() {
-        super(Constantes.Bonus.Sandwich.soins,
-                Constantes.Bonus.Sandwich.points,
-                Constantes.Bonus.Sandwich.imageNomFichier);
+        super(Constantes.Bonus.Sandwich.imageNomFichier);
         
         ingredients = new LinkedList<>();
         ingredients.add(new Pain());
@@ -24,19 +24,7 @@ public class Sandwich extends Bonus {
         ingredients.add(new Viande());
     }
 
-    @Override
-    public int getModifVie() {
-        return ingredients.stream()
-                .reduce(0,
-                        (acc, i) -> acc += i.getModifVie(),
-                        (a, b) -> a + b);
-    }
-
-    @Override
-    public int getPoints() {
-        return ingredients.stream()
-                .reduce(0,
-                        (acc, i) -> acc += i.getPoints(),
-                        (a, b) -> a + b);
+    public void accepte(Visiteur v) {
+        ingredients.forEach(i -> i.accepte(v));
     }
 }

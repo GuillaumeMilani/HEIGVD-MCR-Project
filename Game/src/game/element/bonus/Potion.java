@@ -1,6 +1,7 @@
 package game.element.bonus;
 
 import game.Constantes;
+import game.visiteur.Visiteur;
 
 /**
  *
@@ -9,8 +10,10 @@ import game.Constantes;
 public class Potion extends Bonus {
 
     public Potion() {
-        super(Constantes.Bonus.Potion.soins,
-                Constantes.Bonus.Potion.points,
-                Constantes.Bonus.Potion.imageNomFichier);
+        super(Constantes.Bonus.Potion.imageNomFichier);
+    }
+    @Override
+    public void accepte(Visiteur v) {
+        v.visite(this);
     }
 }
