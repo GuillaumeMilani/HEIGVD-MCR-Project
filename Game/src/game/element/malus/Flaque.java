@@ -1,6 +1,7 @@
 package game.element.malus;
 
 import game.Constantes;
+import game.visiteur.Visiteur;
 
 /**
  *
@@ -9,8 +10,10 @@ import game.Constantes;
 public class Flaque extends Malus {
 
     public Flaque() {
-        super(Constantes.Malus.Flaque.degats,
-                Constantes.Malus.Flaque.points,
-                Constantes.Malus.Flaque.imageNomFichier);
+        super(Constantes.Malus.Flaque.imageNomFichier);
+    }
+    @Override
+    public void accepte(Visiteur v) {
+        v.visite(this);
     }
 }

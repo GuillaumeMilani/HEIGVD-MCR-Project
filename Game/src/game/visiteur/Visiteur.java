@@ -1,6 +1,10 @@
 package game.visiteur;
 
 import game.element.Obstacle;
+import game.element.bonus.Potion;
+import game.element.bonus.Toilette;
+import game.element.malus.Flaque;
+import game.element.malus.Voiture;
 
 /**
  *
@@ -8,5 +12,8 @@ import game.element.Obstacle;
  */
 public interface Visiteur {
 
-    public void visite(Obstacle o);
+    void visite(Potion p);
+    void visite(Toilette t);
+    void visite(Flaque f);
+    void visite(Voiture v);
 }

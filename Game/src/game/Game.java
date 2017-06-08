@@ -27,6 +27,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Gabriel Luthier
@@ -42,6 +45,9 @@ public class Game extends Application {
 
     private Joueur joueur1;
     private Joueur joueur2;
+
+    private List<Obstacle> obstacles;
+
 
     private AnimationTimer timer;
     private boolean gameEnCours = true;
@@ -115,6 +121,8 @@ public class Game extends Application {
 
         root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2);
 
+        obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
+
         for (int i = 0; i < Constantes.NUM_BONUS; i++) {
             Obstacle o;
             if (Math.random() < 0.5) {
@@ -122,6 +130,7 @@ public class Game extends Application {
             } else {
                 o = initialiseObstacle(new Toilette());
             }
+            obstacles.add(o);
             groupeObstacles.getChildren().add(o);
         }
 
@@ -132,6 +141,7 @@ public class Game extends Application {
             } else {
                 o = initialiseObstacle(new Voiture());
             }
+            obstacles.add(o);
             groupeObstacles.getChildren().add(o);
         }
 
@@ -176,8 +186,7 @@ public class Game extends Application {
                     } else {
                         double t = Math.log(1 + (secondesEcoule * 10));
 
-                        groupeObstacles.getChildren().forEach((o) -> {
-                            Obstacle ob = (Obstacle) o;
+                        obstacles.forEach((ob) -> {
                             ob.setY(ob.getY() + t);
 
                             if (ob.getY() > Constantes.GAME_HEIGHT) {
@@ -246,8 +255,7 @@ public class Game extends Application {
     }
 
     private boolean checkObstacleDejaPresent(Obstacle newO) {
-        for (Node o : groupeObstacles.getChildren()) {
-            Obstacle ob = (Obstacle) o;
+        for (Obstacle ob : obstacles) {
             if (!ob.equals(newO)
                     && ob.getX() == newO.getX()
                     && newO.getY() >= ob.getY()
@@ -259,10 +267,9 @@ public class Game extends Application {
     }
 
     private void checkCollision() {
-        groupeObstacles.getChildren().forEach((o) -> {
-            Obstacle ob = (Obstacle)o;
-                checkCollision(ob, joueur1);
-                checkCollision(ob, joueur2);
+        obstacles.forEach((ob) -> {
+            checkCollision(ob, joueur1);
+            checkCollision(ob, joueur2);
         });
 
         if (!joueur1.estEnVie() || !joueur2.estEnVie()) {
@@ -275,7 +282,7 @@ public class Game extends Application {
                 && joueur.getY() >= obstacle.getY()
                 && joueur.getY() < obstacle.getY() + Constantes.CELL_SIZE && !obstacle.aEteVisitePar(joueur)) {
             obstacle.setVisite(joueur);
-            joueur.visite(obstacle);
+            obstacle.accepte(joueur);
             FadeTransition ft = new FadeTransition();
             ft.setNode(obstacle);
             ft.setDuration(new Duration(200));

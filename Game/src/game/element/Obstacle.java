@@ -37,8 +37,4 @@ public abstract class Obstacle extends ImageView implements Element {
         setX(position * Constantes.CELL_SIZE);
         setY(-(Math.random() * Constantes.GAME_HEIGHT));
     }
-    
-    public abstract int getModifVie();
-    
-    public abstract int getPoints();
 }

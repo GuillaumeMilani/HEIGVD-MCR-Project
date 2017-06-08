@@ -23,31 +23,23 @@ public class Constantes {
     public static final KeyCode KEY_RESTART = KeyCode.R;
 
     public static enum Bonus {
-        Potion(10, 100, "/resources/images/potion.png"),
-        Toilette(30, 200, "/resources/images/toilette.png");
+        Potion("/resources/images/potion.png"),
+        Toilette("/resources/images/toilette.png");
 
-        public int soins;
-        public int points;
         public String imageNomFichier;
 
-        private Bonus(int soins, int points, String imageNomFichier) {
-            this.soins = soins;
-            this.points = points;
+        Bonus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
         }
     }
 
     public static enum Malus {
-        Flaque(-10, -80, "/resources/images/flaque.png"),
-        Voiture(-40, -150, "/resources/images/voiture.png");
+        Flaque("/resources/images/flaque.png"),
+        Voiture("/resources/images/voiture.png");
 
-        public int degats;
-        public int points;
         public String imageNomFichier;
 
-        private Malus(int degats, int points, String imageNomFichier) {
-            this.degats = degats;
-            this.points = points;
+        Malus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
         }
     }
