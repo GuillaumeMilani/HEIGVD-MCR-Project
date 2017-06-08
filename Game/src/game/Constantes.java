@@ -23,6 +23,11 @@ public class Constantes {
     public static final KeyCode KEY_RESTART = KeyCode.R;
 
     public static enum Bonus {
+        Sandwich(0, 0, "/resources/images/sandwich.png"),
+        Pain(1, 10, "/resources/images/pain.png"),
+        Salade(2, 20, "/resources/images/salade.png"),
+        Tomate(3, 30, "/resources/images/tomate.png"),
+        Viande(4, 40, "/resources/images/viande.png"),
         Potion(10, 100, "/resources/images/potion.png"),
         Toilette(30, 200, "/resources/images/toilette.png");
 
