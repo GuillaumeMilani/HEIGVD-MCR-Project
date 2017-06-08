@@ -18,6 +18,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -140,7 +141,6 @@ public class Game extends Application {
             groupeObstacles.getChildren().add(o);
         }
 
-
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (gameEnCours) {
                 switch (event.getCode()) {
@@ -161,6 +161,10 @@ public class Game extends Application {
                 }
 
                 checkCollision();
+            } else {
+                if (event.getCode() == Constantes.KEY_RESTART) {
+                    restart(stage);
+                }
             }
         });
 
@@ -168,9 +172,10 @@ public class Game extends Application {
 
         timer = new AnimationTimer() {
             long ancienneNano = 0;
+
             @Override
             public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2000000*(10-Constantes.GAME_SPEED)) {
+                if (currentNanoTime - ancienneNano > 2000000 * (10 - Constantes.GAME_SPEED)) {
                     long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
                     if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
                         arreterJeu();
@@ -178,7 +183,7 @@ public class Game extends Application {
                         double t = Math.log(1 + (secondesEcoule * 10));
 
                         groupeObstacles.getChildren().forEach((o) -> {
-                            Obstacle ob = (Obstacle)o;
+                            Obstacle ob = (Obstacle) o;
                             ob.setY(ob.getY() + t);
 
                             if (ob.getY() > Constantes.GAME_HEIGHT) {
@@ -198,8 +203,14 @@ public class Game extends Application {
 
         stage.show();
     }
+    
+    public void restart(Stage stage) {
+        stage.close();
+        gameEnCours = true;
+        start(stage);
+    }
 
-    private void arreterJeu() {
+    public void arreterJeu() {
         timer.stop();
         gameEnCours = false;
         afficherScores();
@@ -242,7 +253,7 @@ public class Game extends Application {
 
     private boolean checkObstacleDejaPresent(Obstacle newO) {
         for (Node o : groupeObstacles.getChildren()) {
-            Obstacle ob = (Obstacle)o;
+            Obstacle ob = (Obstacle) o;
             if (!ob.equals(newO)
                     && ob.getX() == newO.getX()
                     && newO.getY() >= ob.getY()
