@@ -23,26 +23,33 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- *
- * @author Gabriel Luthier
+ * Classe principale de l'application du jeu
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
+ * Nathan Gonzalez Montes
  */
 public class Game extends Application {
 
-    private Image background;
-    private Image icon1;
-    private Image icon2;
-
+    private Image background;   // Image de fond du jeu
+    private Image icon1;        // Image du premier joueur
+    private Image icon2;        // Image du deuxième joueur
+    /*
+     * Police de l'affichage du score
+     */
     private final Font scoreFont = new Font("Verdana", 16);
     private final Font finalFont = new Font("Verdana", 40);
 
-    private Joueur joueur1;
-    private Joueur joueur2;
-    private List<Obstacle> obstacles;
+    private Joueur joueur1;             // Le joueur (visiteur) numéro 1 du jeu
+    private Joueur joueur2;             // Le joueur numéro 2 (visiteur) du jeu
+    private List<Obstacle> obstacles;   // Liste des obstacles (éléments) du jeu
 
-    private GraphicsContext gc;
-    private AnimationTimer timer;
-    private boolean gameEnCours = true;
+    private GraphicsContext gc;     // Graphique pour le jeu
+    private AnimationTimer timer;   // Temps pendant lequel le jeu se dérroule
+    private boolean gameEnCours = true; // Booleéen pour savoir si le jeu est en cours
 
+    /**
+     * Surcharge de la méthode starte de la classe Application pour débuter la partie
+     * @param stage Stage où la fenêtre va s'afficher
+     */
     @Override
     public void start(Stage stage) {
         Group root = new Group();
@@ -135,7 +142,7 @@ public class Game extends Application {
             long ancienneNano = 0;
             @Override
             public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2000000*(10-Constantes.GAME_SPEED)) {
+                if (currentNanoTime - ancienneNano > 2000000 * (10 - Constantes.GAME_SPEED)) {
                     long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
                     if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
                         arreterJeu();
@@ -164,6 +171,9 @@ public class Game extends Application {
         stage.show();
     }
 
+    /**
+     * Méthode pour intérrompre le jeu
+     */
     public void arreterJeu() {
         timer.stop();
         gameEnCours = false;
@@ -171,6 +181,9 @@ public class Game extends Application {
         afficherScores();
     }
 
+    /**
+     * Méthode qui s'occupe d'afficher le score
+     */
     public void afficherScores() {
         String gagnant;
         if (!joueur1.estEnVie()) {
@@ -187,6 +200,9 @@ public class Game extends Application {
         gc.strokeText(gagnant + " a gagné !", (Constantes.GAME_WIDTH / 2) - 200, (Constantes.GAME_HEIGHT / 2) - 20);
     }
 
+    /**
+     * Méthode pour dessiner sur le Canvas les images et autres pour l'affichage du jeu
+     */
     public void drawCanvas() {
         gc.drawImage(background, 0, 0);
         gc.drawImage(icon1, 0, 0);
@@ -203,6 +219,11 @@ public class Game extends Application {
         gc.drawImage(joueur2.getImage(), joueur2.getX(), joueur2.getY());
     }
 
+    /**
+     * Initialisation des différents obstacles qui apparaîtront dans le jeu
+     * @param o L'obstacle que l'on va initialiser
+     * @return L'obstacle après son initialisation
+     */
     public Obstacle initialiseObstacle(Obstacle o) {
         while (checkObstacleDejaPresent(o)) {
             o.nouvelleRandomPosition();
@@ -211,6 +232,11 @@ public class Game extends Application {
         return o;
     }
 
+    /**
+     * Méthode qui vérifie la présence des obstacles dans le jeu
+     * @param newO L'obstacle à vérifier
+     * @return Vrai si l'obstacle est là, faux sinon
+     */
     public boolean checkObstacleDejaPresent(Obstacle newO) {
         for (Obstacle o : obstacles) {
             if (!o.equals(newO)
@@ -223,6 +249,9 @@ public class Game extends Application {
         return false;
     }
 
+    /**
+     * Vérifie la "collision" du joueur avec un des obstacle
+     */
     public void checkCollision() {
         obstacles.forEach((o) -> {
             if (joueur1.getX() == o.getX()
@@ -250,6 +279,7 @@ public class Game extends Application {
     }
 
     /**
+     * Fonction main du programme
      * @param args the command line arguments
      */
     public static void main(String[] args) {

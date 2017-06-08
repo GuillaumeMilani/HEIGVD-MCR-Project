@@ -8,14 +8,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
- * @author Gabriel Luthier
+ * Classe pour les éléments qui vont être visités
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
+ * Nathan Gonzalez Montes
  */
 public abstract class Obstacle extends ImageView implements Element {
 
-    private final Image image;
-    private final List<Joueur> joueursVisite;
+    private final Image image;  // Image de l'obstacle
+    private final List<Joueur> joueursVisite;   // Liste des joueurs visiteurs
     
+    /**
+     * Constructeur de la classe Obstacle
+     * @param imageNomFichier Nom du fichier de l'obstacle
+     */
     public Obstacle(String imageNomFichier) {
         image = new Image(getClass().getResource(imageNomFichier).toString(),
                 Constantes.CELL_SIZE, Constantes.CELL_SIZE, true, true);
@@ -24,6 +29,11 @@ public abstract class Obstacle extends ImageView implements Element {
         setImage(image);
     }
     
+    /**
+     * 
+     * @param joueur
+     * @return 
+     */
     public boolean aEteVisitePar(Joueur joueur) {
         return joueursVisite.contains(joueur);
     }
