@@ -31,27 +31,21 @@ public class Constantes {
      * Enum qui possède les Bonus du jeu
      */
     public static enum Bonus {
-        Sandwich(0, 0, "/resources/images/sandwich.png"),
-        Pain(1, 10, "/resources/images/pain.png"),
-        Salade(2, 20, "/resources/images/salade.png"),
-        Tomate(3, 30, "/resources/images/tomate.png"),
-        Viande(4, 40, "/resources/images/viande.png"),
-        Potion(10, 100, "/resources/images/potion.png"),
-        Toilette(30, 200, "/resources/images/toilette.png");
+        Potion("/resources/images/potion.png"),
+        Toilette("/resources/images/toilette.png"),
+        Sandwich("/resources/images/sandwich.png"),
+        Pain("/resources/images/pain.png"),
+        Salade("/resources/images/salade.png"),
+        Tomate("/resources/images/tomate.png"),
+        Viande("/resources/images/viande.png");
 
-        public int soins;
-        public int points;
         public String imageNomFichier;
 
         /**
          * Constructeur de la classe des Bonus
-         * @param soins Total de soins donnés par le Bonus
-         * @param points Points données par le Bonus
          * @param imageNomFichier Nom du fichier du Bonus
          */
-        private Bonus(int soins, int points, String imageNomFichier) {
-            this.soins = soins;
-            this.points = points;
+        Bonus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
         }
     }
@@ -60,22 +54,16 @@ public class Constantes {
      * Enum qui possède les Malus du jeu
      */
     public static enum Malus {
-        Flaque(-10, -80, "/resources/images/flaque.png"),
-        Voiture(-40, -150, "/resources/images/voiture.png");
+        Flaque("/resources/images/flaque.png"),
+        Voiture("/resources/images/voiture.png");
 
-        public int degats;
-        public int points;
         public String imageNomFichier;
 
         /**
          * Constructeur de la classe des Malus
-         * @param degats Total de dégats donnés par le Malus
-         * @param points Points enlevés par le Malus
          * @param imageNomFichier Nom du fichier du Malus
          */
-        private Malus(int degats, int points, String imageNomFichier) {
-            this.degats = degats;
-            this.points = points;
+        Malus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
         }
     }

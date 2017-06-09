@@ -6,7 +6,7 @@ package game.element.bonus;
  */
 public abstract class SandwichElement extends Bonus {
 
-    public SandwichElement(int soins, int points, String imageNomFichier) {
-        super(soins, points, imageNomFichier);
+    public SandwichElement(String imageNomFichier) {
+        super(imageNomFichier);
     }
 }

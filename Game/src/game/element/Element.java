@@ -14,5 +14,5 @@ public interface Element {
      * qui vont apparaitre au fur et à mesure dans le jeu 
      * @param v Visiteur qui va faire la visite de l'objet courant
      */
-    public void accept(Visiteur v);
+    public void accepte(Visiteur v);
 }

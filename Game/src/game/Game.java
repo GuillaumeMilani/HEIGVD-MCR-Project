@@ -32,6 +32,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Classe principale de l'application du jeu
  * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
@@ -51,6 +54,8 @@ public class Game extends Application {
     private Joueur joueur1;             // Le joueur (visiteur) numéro 1 du jeu
     private Joueur joueur2;             // Le joueur numéro 2 (visiteur) du jeu
 
+    private List<Obstacle> obstacles;
+
     private GraphicsContext gc;     // Graphique pour le jeu
     private AnimationTimer timer;   // Temps pendant lequel le jeu se dérroule
     private boolean gameEnCours = true; // Booleéen pour savoir si le jeu est en cours
@@ -67,7 +72,6 @@ public class Game extends Application {
      */
     @Override
     public void start(Stage stage) {
-        BorderPane bp = new BorderPane();
         root = new Group();
         groupeObstacles = new Group();
 
@@ -75,10 +79,6 @@ public class Game extends Application {
 
         stage.setTitle(Constantes.GAME_TITLE);
         stage.setScene(scene);
-
-        Canvas canvas = new Canvas(Constantes.GAME_WIDTH, Constantes.GAME_HEIGHT);
-
-        canvas.setFocusTraversable(true);
 
         joueur1 = new Jacquouille();
         joueur2 = new Godefroy();
@@ -133,8 +133,10 @@ public class Game extends Application {
 
         root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2);
 
+        obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
+
         Random random = new Random();
-        
+
         for (int i = 0; i < Constantes.NUM_BONUS; i++) {
             Obstacle o;
             switch (random.nextInt(7)) {
@@ -163,6 +165,7 @@ public class Game extends Application {
                     o = initialiseObstacle(new Toilette());
                     break;
             }
+            obstacles.add(o);
             groupeObstacles.getChildren().add(o);
         }
 
@@ -173,6 +176,7 @@ public class Game extends Application {
             } else {
                 o = initialiseObstacle(new Voiture());
             }
+            obstacles.add(o);
             groupeObstacles.getChildren().add(o);
         }
 
@@ -217,8 +221,7 @@ public class Game extends Application {
                     } else {
                         double t = Math.log(1 + (secondesEcoule * 10));
 
-                        groupeObstacles.getChildren().forEach((o) -> {
-                            Obstacle ob = (Obstacle) o;
+                        obstacles.forEach((ob) -> {
                             ob.setY(ob.getY() + t);
 
                             if (ob.getY() > Constantes.GAME_HEIGHT) {
@@ -238,7 +241,7 @@ public class Game extends Application {
 
         stage.show();
     }
-    
+
     public void restart(Stage stage) {
         stage.close();
         gameEnCours = true;
@@ -306,8 +309,7 @@ public class Game extends Application {
      * @return Vrai si l'obstacle est là, faux sinon
      */
     private boolean checkObstacleDejaPresent(Obstacle newO) {
-        for (Node o : groupeObstacles.getChildren()) {
-            Obstacle ob = (Obstacle) o;
+        for (Obstacle ob : obstacles) {
             if (!ob.equals(newO)
                     && ob.getX() == newO.getX()
                     && newO.getY() >= ob.getY()
@@ -322,10 +324,9 @@ public class Game extends Application {
      * Vérifie la "collision" du joueur avec un des obstacle
      */
     private void checkCollision() {
-        groupeObstacles.getChildren().forEach((o) -> {
-            Obstacle ob = (Obstacle)o;
-                checkCollision(ob, joueur1);
-                checkCollision(ob, joueur2);
+        obstacles.forEach((ob) -> {
+            checkCollision(ob, joueur1);
+            checkCollision(ob, joueur2);
         });
 
         if (!joueur1.estEnVie() || !joueur2.estEnVie()) {
@@ -338,7 +339,7 @@ public class Game extends Application {
                 && joueur.getY() >= obstacle.getY()
                 && joueur.getY() < obstacle.getY() + Constantes.CELL_SIZE && !obstacle.aEteVisitePar(joueur)) {
             obstacle.setVisite(joueur);
-            joueur.visite(obstacle);
+            obstacle.accepte(joueur);
             FadeTransition ft = new FadeTransition();
             ft.setNode(obstacle);
             ft.setDuration(new Duration(200));
