@@ -1,6 +1,5 @@
 package game.visiteur;
 
-import game.element.Obstacle;
 import game.element.bonus.*;
 import game.element.malus.Flaque;
 import game.element.malus.Voiture;

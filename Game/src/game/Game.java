@@ -18,14 +18,11 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -72,6 +69,7 @@ public class Game extends Application {
      */
     @Override
     public void start(Stage stage) {
+        gameEnCours = true;
         root = new Group();
         groupeObstacles = new Group();
 
@@ -214,8 +212,8 @@ public class Game extends Application {
 
             @Override
             public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2000000 * (10 - Constantes.GAME_SPEED)) {
-                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
+                if (currentNanoTime - ancienneNano > 2_000_000 * (10 - Constantes.GAME_SPEED)) {
+                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1_000_000_000;
                     if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
                         arreterJeu();
                     } else {
@@ -244,7 +242,6 @@ public class Game extends Application {
 
     public void restart(Stage stage) {
         stage.close();
-        gameEnCours = true;
         start(stage);
     }
 

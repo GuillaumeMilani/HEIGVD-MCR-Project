@@ -2,7 +2,6 @@ package game.element.bonus;
 
 import game.Constantes;
 import game.visiteur.Visiteur;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +23,7 @@ public class Sandwich extends Bonus {
         ingredients.add(new Viande());
     }
 
+    @Override
     public void accepte(Visiteur v) {
         ingredients.forEach(i -> i.accepte(v));
     }
