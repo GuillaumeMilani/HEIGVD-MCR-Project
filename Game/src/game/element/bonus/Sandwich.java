@@ -2,7 +2,6 @@ package game.element.bonus;
 
 import game.Constantes;
 import game.visiteur.Visiteur;
-
 import java.util.LinkedList;
 import java.util.List;
 

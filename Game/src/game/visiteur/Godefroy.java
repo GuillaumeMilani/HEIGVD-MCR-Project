@@ -68,6 +68,7 @@ public class Godefroy extends Joueur {
      * Surcharge de la méthode visite pour une visite sur du Pain
      * @param p L'élément Pain à visiter
      */
+
     @Override
     public void visite(Pain p) {
         modifieVie(1);

@@ -69,6 +69,7 @@ public class Game extends Application {
      */
     @Override
     public void start(Stage stage) {
+        gameEnCours = true;
         root = new Group();
         groupeObstacles = new Group();
 
@@ -211,8 +212,8 @@ public class Game extends Application {
 
             @Override
             public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2000000 * (10 - Constantes.GAME_SPEED)) {
-                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
+                if (currentNanoTime - ancienneNano > 2_000_000 * (10 - Constantes.GAME_SPEED)) {
+                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1_000_000_000;
                     if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
                         arreterJeu();
                     } else {
@@ -241,7 +242,6 @@ public class Game extends Application {
 
     public void restart(Stage stage) {
         stage.close();
-        gameEnCours = true;
         start(stage);
     }
 
