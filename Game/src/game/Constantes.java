@@ -39,11 +39,11 @@ public class Constantes {
         Tomate("/resources/images/tomate.png"),
         Viande("/resources/images/viande.png");
 
-        public String imageNomFichier;
+        public String imageNomFichier;  // Chemin vers l'image du fichier
 
         /**
          * Constructeur de la classe des Bonus
-         * @param imageNomFichier Nom du fichier du Bonus
+         * @param imageNomFichier Chemin vers l'image fichier du Bonus
          */
         Bonus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
@@ -57,11 +57,11 @@ public class Constantes {
         Flaque("/resources/images/flaque.png"),
         Voiture("/resources/images/voiture.png");
 
-        public String imageNomFichier;
+        public String imageNomFichier;  // Chemin vers l'image du fichier
 
         /**
          * Constructeur de la classe des Malus
-         * @param imageNomFichier Nom du fichier du Malus
+         * @param imageNomFichier Chemin vers l'image fichier du Malus
          */
         Malus(String imageNomFichier) {
             this.imageNomFichier = imageNomFichier;
