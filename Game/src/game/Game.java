@@ -139,14 +139,6 @@ public class Game extends Application {
 
         Random random = new Random();
 
-        for (int i = 0; i < Constantes.NUM_BONUS; i++) {
-            createRandomBonus(random);
-        }
-
-        for (int i = 0; i < Constantes.NUM_MALUS; i++) {
-            createRandomMalus(random);
-        }
-
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (gameEnCours) {
                 switch (event.getCode()) {
@@ -182,7 +174,7 @@ public class Game extends Application {
             if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
                 arreterJeu();
             } else {
-                double t = 5 + Math.log(1 + (secondesEcoulees * 10));
+                double t = Constantes.GAME_SPEED-2 + Math.log(1 + (secondesEcoulees * 10));
 
                 Iterator<Obstacle> it = obstacles.iterator();
 
