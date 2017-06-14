@@ -13,9 +13,7 @@ import game.element.malus.Voiture;
 import game.visiteur.Godefroy;
 import game.visiteur.Jacquouille;
 import game.visiteur.Joueur;
-
 import java.util.*;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -38,6 +36,14 @@ import javafx.util.Duration;
  * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Game extends Application {
+    /**
+     * Fonction main du programme
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     private Image background;   // Image de fond du jeu
     private Image welcome;      // Image d'accueil
@@ -359,14 +365,6 @@ public class Game extends Application {
         }
     }
 
-    /**
-     * Fonction main du programme
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void stop() {
