@@ -34,12 +34,13 @@ import java.util.List;
 
 /**
  * Classe principale de l'application du jeu
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Game extends Application {
 
     private Image background;   // Image de fond du jeu
+    private Image welcome;      // Image d'accueil
     private Image icon1;        // Image du premier joueur
     private Image icon2;        // Image du deuxième joueur
     /*
@@ -53,10 +54,11 @@ public class Game extends Application {
 
     private List<Obstacle> obstacles;
 
-    private GraphicsContext gc;     // Graphique pour le jeu
-    private AnimationTimer timer;   // Temps pendant lequel le jeu se dérroule
+    private GraphicsContext gc;         // Graphique pour le jeu
+    private AnimationTimer timer;       // Temps pendant lequel le jeu se dérroule
     private boolean gameEnCours = true; // Booleéen pour savoir si le jeu est en cours
-    
+    private boolean pause = false;      // Dis si le jeu est en pause
+
     private Text scoreJoueur1;
     private Text scoreJoueur2;
 
@@ -65,10 +67,12 @@ public class Game extends Application {
 
     /**
      * Surcharge de la méthode starte de la classe Application pour débuter la partie
+     *
      * @param stage Stage où la fenêtre va s'afficher
      */
     @Override
     public void start(Stage stage) {
+        pause = true; // met le jeu en pause au début
         gameEnCours = true;
         root = new Group();
         groupeObstacles = new Group();
@@ -83,6 +87,12 @@ public class Game extends Application {
 
         background = new Image(
                 getClass().getResource(Constantes.BACKGROUND_PATH).toString(),
+                Constantes.GAME_WIDTH,
+                Constantes.GAME_HEIGHT,
+                false, true);
+
+        welcome = new Image(
+                getClass().getResource(Constantes.WELCOME_PATH).toString(),
                 Constantes.GAME_WIDTH,
                 Constantes.GAME_HEIGHT,
                 false, true);
@@ -127,9 +137,16 @@ public class Game extends Application {
         scoreJoueur2.setX(Constantes.ICON_SIZE + 5);
         scoreJoueur2.setY(2 * Constantes.ICON_SIZE - 10);
 
+        ImageView welcomeImage = new ImageView(welcome);
+        welcomeImage.setFocusTraversable(true);
+        welcomeImage.setX(0);
+        welcomeImage.setY(0);
+        welcomeImage.setFitHeight(Constantes.GAME_HEIGHT);
+        welcomeImage.setFitWidth(Constantes.GAME_WIDTH);
+
         drawScore();
 
-        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2);
+        root.getChildren().addAll(backgroundImage, scoreJoueur1, scoreJoueur2, icon1view, icon2view, groupeObstacles, joueur1, joueur2, welcomeImage);
 
         obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
 
@@ -193,6 +210,9 @@ public class Game extends Application {
                     case RIGHT:
                         joueur2.moveRight();
                         break;
+                    case SPACE:
+                        pause = false;
+                        root.getChildren().remove(welcomeImage);
                     default:
                         break;
                 }
@@ -212,26 +232,28 @@ public class Game extends Application {
 
             @Override
             public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2_000_000 * (10 - Constantes.GAME_SPEED)) {
-                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1_000_000_000;
-                    if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
-                        arreterJeu();
-                    } else {
-                        double t = Math.log(1 + (secondesEcoule * 10));
+                if (!pause) {
+                    if (currentNanoTime - ancienneNano > 2_000_000 * (10 - Constantes.GAME_SPEED)) {
+                        long secondesEcoule = (currentNanoTime - startNanoTime) / 1_000_000_000;
+                        if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
+                            arreterJeu();
+                        } else {
+                            double t = Math.log(1 + (secondesEcoule * 10));
 
-                        obstacles.forEach((ob) -> {
-                            ob.setY(ob.getY() + t);
+                            obstacles.forEach((ob) -> {
+                                ob.setY(ob.getY() + t);
 
-                            if (ob.getY() > Constantes.GAME_HEIGHT) {
-                                do {
-                                    ob.nouvelleRandomPosition();
-                                } while (checkObstacleDejaPresent(ob));
-                            }
-                        });
+                                if (ob.getY() > Constantes.GAME_HEIGHT) {
+                                    do {
+                                        ob.nouvelleRandomPosition();
+                                    } while (checkObstacleDejaPresent(ob));
+                                }
+                            });
 
-                        checkCollision();
+                            checkCollision();
+                        }
+                        ancienneNano = currentNanoTime;
                     }
-                    ancienneNano = currentNanoTime;
                 }
             }
         };
@@ -289,6 +311,7 @@ public class Game extends Application {
 
     /**
      * Initialisation des différents obstacles qui apparaîtront dans le jeu
+     *
      * @param o L'obstacle que l'on va initialiser
      * @return L'obstacle après son initialisation
      */
@@ -302,6 +325,7 @@ public class Game extends Application {
 
     /**
      * Méthode qui vérifie la présence des obstacles dans le jeu
+     *
      * @param newO L'obstacle à vérifier
      * @return Vrai si l'obstacle est là, faux sinon
      */
@@ -349,6 +373,7 @@ public class Game extends Application {
 
     /**
      * Fonction main du programme
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

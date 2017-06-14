@@ -24,6 +24,7 @@ public class Constantes {
     public static final int NUM_OBSTACLES = NUM_BONUS + NUM_MALUS;
     // Chemin vers l'image de fons du jeu
     public static final String BACKGROUND_PATH = "/resources/images/field.png";
+    public static final String WELCOME_PATH = "/resources/images/regles.jpg";
     public static final long GAME_SPEED = 4; // 1 = slow, 10 = fast Vitesse du jeu
     public static final KeyCode KEY_RESTART = KeyCode.R; // Un code de clé
 
