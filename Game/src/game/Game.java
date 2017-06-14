@@ -13,27 +13,25 @@ import game.element.malus.Voiture;
 import game.visiteur.Godefroy;
 import game.visiteur.Jacquouille;
 import game.visiteur.Joueur;
-import java.util.Random;
+
+import java.util.*;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -59,9 +57,13 @@ public class Game extends Application {
 
     private Text scoreJoueur1;
     private Text scoreJoueur2;
+    private Text tempsRestant;
 
     private Group root;
     private Group groupeObstacles;
+
+    private Timeline deplacement;
+    Timer creationTimer;
 
     @Override
     public void start(Stage stage) {
@@ -80,7 +82,7 @@ public class Game extends Application {
                 getClass().getResource(Constantes.BACKGROUND_PATH).toString(),
                 Constantes.GAME_WIDTH,
                 Constantes.GAME_HEIGHT,
-                false, true);
+                true, true);
 
         icon1 = new Image(
                 getClass().getResource(Constantes.Joueurs.Jacquouille.imageNomFichier).toString(),
@@ -122,55 +124,27 @@ public class Game extends Application {
         scoreJoueur2.setX(Constantes.ICON_SIZE + 5);
         scoreJoueur2.setY(2 * Constantes.ICON_SIZE - 10);
 
+        tempsRestant = new Text();
+        tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES));
+        tempsRestant.setX(Constantes.GAME_WIDTH - 50);
+        tempsRestant.setY(30);
+        tempsRestant.setFill(scoreJoueur1.getFill());
+        tempsRestant.setFont(new Font(30));
+
         drawScore();
 
-        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2);
+        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant);
 
         obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
 
         Random random = new Random();
 
         for (int i = 0; i < Constantes.NUM_BONUS; i++) {
-            Obstacle o;
-            switch (random.nextInt(7)) {
-                case 0:
-                    o = initialiseObstacle(new Potion());
-                    break;
-                case 1:
-                    o = initialiseObstacle(new Toilette());
-                    break;
-                case 2:
-                    o = initialiseObstacle(new Sandwich());
-                    break;
-                case 3:
-                    o = initialiseObstacle(new Pain());
-                    break;
-                case 4:
-                    o = initialiseObstacle(new Salade());
-                    break;
-                case 5:
-                    o = initialiseObstacle(new Tomate());
-                    break;
-                case 6:
-                    o = initialiseObstacle(new Viande());
-                    break;
-                default:
-                    o = initialiseObstacle(new Toilette());
-                    break;
-            }
-            obstacles.add(o);
-            groupeObstacles.getChildren().add(o);
+            createRandomBonus(random);
         }
 
         for (int i = 0; i < Constantes.NUM_MALUS; i++) {
-            Obstacle o;
-            if (Math.random() < 0.5) {
-                o = initialiseObstacle(new Flaque());
-            } else {
-                o = initialiseObstacle(new Voiture());
-            }
-            obstacles.add(o);
-            groupeObstacles.getChildren().add(o);
+            createRandomMalus(random);
         }
 
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
@@ -200,39 +174,94 @@ public class Game extends Application {
             }
         });
 
-        final long startNanoTime = System.nanoTime();
+        final long heureDebut = System.currentTimeMillis();
 
-        timer = new AnimationTimer() {
-            long ancienneNano = 0;
+        deplacement = new Timeline(new KeyFrame(Duration.millis(20), event -> {
+            long secondesEcoulees = (System.currentTimeMillis() - heureDebut) / 1000;
+            tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES - secondesEcoulees));
+            if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
+                arreterJeu();
+            } else {
+                double t = 5 + Math.log(1 + (secondesEcoulees * 10));
 
-            @Override
-            public void handle(long currentNanoTime) {
-                if (currentNanoTime - ancienneNano > 2000000 * (10 - Constantes.GAME_SPEED)) {
-                    long secondesEcoule = (currentNanoTime - startNanoTime) / 1000000000;
-                    if (secondesEcoule >= Constantes.TEMPS_PARTIE_SECONDES) {
-                        arreterJeu();
-                    } else {
-                        double t = Math.log(1 + (secondesEcoule * 10));
+                Iterator<Obstacle> it = obstacles.iterator();
 
-                        obstacles.forEach((ob) -> {
-                            ob.setY(ob.getY() + t);
-
-                            if (ob.getY() > Constantes.GAME_HEIGHT) {
-                                do {
-                                    ob.nouvelleRandomPosition();
-                                } while (checkObstacleDejaPresent(ob));
-                            }
-                        });
-
-                        checkCollision();
+                while (it.hasNext()) {
+                    Obstacle o = it.next();
+                    o.setY(o.getY() + t);
+                    if (o.getY() > Constantes.GAME_HEIGHT) {
+                        it.remove();
+                        Platform.runLater(() -> groupeObstacles.getChildren().remove(o));
                     }
-                    ancienneNano = currentNanoTime;
                 }
+
+                checkCollision();
             }
-        };
-        timer.start();
+        }));
+        deplacement.setCycleCount(Timeline.INDEFINITE);
+        deplacement.play();
+
+        creationTimer = new Timer();
+        creationTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    int nbObstacles = random.nextInt(10);
+                    for (int i = 0; i < nbObstacles; i++) {
+                        if (random.nextBoolean()) {
+                            createRandomBonus(random);
+                        } else {
+                            createRandomMalus(random);
+                        }
+                    }
+                });
+            }
+        }, 0, 1000);
 
         stage.show();
+    }
+
+    public void createRandomBonus(Random random) {
+        Obstacle o;
+        switch (random.nextInt(7)) {
+            case 0:
+                o = new Potion();
+                break;
+            case 1:
+                o = new Toilette();
+                break;
+            case 2:
+                o = new Sandwich();
+                break;
+            case 3:
+                o = new Pain();
+                break;
+            case 4:
+                o = new Salade();
+                break;
+            case 5:
+                o = new Tomate();
+                break;
+            case 6:
+                o = new Viande();
+                break;
+            default:
+                o = new Toilette();
+                break;
+        }
+        obstacles.add(o);
+        groupeObstacles.getChildren().add(o);
+    }
+
+    private void createRandomMalus(Random random) {
+        Obstacle o;
+        if (Math.random() < 0.5) {
+            o = initialiseObstacle(new Flaque());
+        } else {
+            o = initialiseObstacle(new Voiture());
+        }
+        obstacles.add(o);
+        groupeObstacles.getChildren().add(o);
     }
 
     public void restart(Stage stage) {
@@ -242,7 +271,8 @@ public class Game extends Application {
     }
 
     public void arreterJeu() {
-        timer.stop();
+        deplacement.stop();
+        creationTimer.cancel();
         gameEnCours = false;
         afficherScores();
     }
@@ -328,4 +358,9 @@ public class Game extends Application {
         launch(args);
     }
 
+    @Override
+    public void stop() {
+        deplacement.stop();
+        creationTimer.cancel();
+    }
 }
