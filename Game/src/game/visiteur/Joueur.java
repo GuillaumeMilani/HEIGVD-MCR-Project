@@ -1,11 +1,6 @@
 package game.visiteur;
 
 import game.Constantes;
-import game.element.Obstacle;
-import game.element.bonus.Potion;
-import game.element.bonus.Toilette;
-import game.element.malus.Flaque;
-import game.element.malus.Voiture;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -19,8 +14,8 @@ import javafx.util.Duration;
 
 /**
  * Classe abstraite pour représenter le visiteur en tant que joueur de la partie
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public abstract class Joueur extends Group implements Visiteur {
 
@@ -39,6 +34,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Constructeur de la classe Joueur
+     *
      * @param nom Représente le nom du joueur
      * @param maxVie La vie maximale d'un joueur
      * @param facteurVie Le facteur pour modifier la vie
@@ -59,15 +55,16 @@ public abstract class Joueur extends Group implements Visiteur {
         this.facteurScore = facteurScore;
 
         image = new Image(getClass().getResource(imageNomFichier).toString(),
-                Constantes.CELL_SIZE, Constantes.CELL_SIZE, true, true);
+                Constantes.CELLULE_TAILLE, Constantes.CELLULE_TAILLE, true, true);
         imageView = new ImageView(image);
-        imageView.setX(position * Constantes.CELL_SIZE);
-        imageView.setY(Constantes.GAME_HEIGHT - Constantes.CELL_SIZE);
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
+        imageView.setY(Constantes.JEU_HAUTEUR - Constantes.CELLULE_TAILLE);
         getChildren().add(imageView);
     }
 
     /**
      * Méthode pour obtenir le nom du joueur
+     *
      * @return Le nom du joueur
      */
     public String getNom() {
@@ -76,6 +73,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour obtenir la vie du joueur
+     *
      * @return La vie du joueur
      */
     public int getVie() {
@@ -84,6 +82,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour obtenir le score du joueur
+     *
      * @return Le score du joueur
      */
     public int getScore() {
@@ -91,7 +90,8 @@ public abstract class Joueur extends Group implements Visiteur {
     }
 
     /**
-     * Méthode pour savoir si le  joueur est en vie
+     * Méthode pour savoir si le joueur est en vie
+     *
      * @return Vrai si le joueur est en vie, faux sinon
      */
     public boolean estEnVie() {
@@ -101,23 +101,24 @@ public abstract class Joueur extends Group implements Visiteur {
     /**
      * Déplacement de la position du joueur vers la gauche
      */
-    public void moveLeft() {
+    public void deplaceGauche() {
         int newPosition = position - 1;
         position = newPosition >= 0 ? newPosition : 0;
-        imageView.setX(position * Constantes.CELL_SIZE);
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
     }
 
     /**
      * Déplacement de la position du joueur vers la droite
      */
-    public void moveRight() {
+    public void deplaceDroite() {
         int newPosition = position + 1;
-        position = newPosition < Constantes.NUM_COLS ? newPosition : Constantes.NUM_COLS - 1;
-        imageView.setX(position * Constantes.CELL_SIZE);
+        position = newPosition < Constantes.NBR_COLS ? newPosition : Constantes.NBR_COLS - 1;
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
     }
 
     /**
      * Méthode pour modifier la vie du joueur
+     *
      * @param modif La modification apportée
      */
     public void modifieVie(double modif) {
@@ -145,13 +146,13 @@ public abstract class Joueur extends Group implements Visiteur {
         }
 
         // Definir le texte
-        texteContenu = texteContenu + (int)modif;
+        texteContenu = texteContenu + (int) modif;
         texte.setText(texteContenu);
         texte.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         // Placement du texte
         double textWidth = texte.getBoundsInLocal().getWidth();
-        texte.setX(getX() + imageView.getBoundsInLocal().getWidth()/2.0 - textWidth/2.0);
+        texte.setX(getX() + imageView.getBoundsInLocal().getWidth() / 2.0 - textWidth / 2.0);
         texte.setY(getY() - 10);
 
         // Effet de disparition du texte
@@ -170,6 +171,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour modifier le score du joueur
+     *
      * @param modif La modification apportée
      */
     public void modifieScore(double modif) {

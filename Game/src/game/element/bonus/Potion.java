@@ -5,8 +5,8 @@ import game.visiteur.Visiteur;
 
 /**
  * Classe pour représenter l'élément bonus Potion
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Potion extends Bonus {
 
@@ -14,11 +14,12 @@ public class Potion extends Bonus {
      * Constructeur de la classe Potion
      */
     public Potion() {
-        super(Constantes.Bonus.Potion.imageNomFichier);
+        super(Constantes.Bonus.Potion.imageChemin);
     }
 
     /**
      * Surcharge de la méthode 'accepte' pour accepter un visiteur
+     *
      * @param v Visiteur accepté par l'élement
      */
     @Override
