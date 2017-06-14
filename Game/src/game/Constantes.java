@@ -4,11 +4,11 @@ import javafx.scene.input.KeyCode;
 
 /**
  * Classe contenatn la plupart des constantes à utiliser dans le programme
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Constantes {
-    
+
     public static final String GAME_TITLE = "Visiteur"; // Nom du jeu
     public static final int GAME_WIDTH = 800;   // Largeur de la fenêtre de jeu
     public static final int GAME_HEIGHT = 600;  // Hauteur de la fenêtre de jeu
@@ -28,7 +28,6 @@ public class Constantes {
     public static final KeyCode KEY_RESTART = KeyCode.R;
     public static final String WELCOME_PATH = "/resources/images/regles.jpg";
 
-
     /**
      * Enum qui possède les Bonus du jeu
      */
@@ -45,6 +44,7 @@ public class Constantes {
 
         /**
          * Constructeur de la classe des Bonus
+         *
          * @param imageNomFichier Chemin vers l'image fichier du Bonus
          */
         Bonus(String imageNomFichier) {
@@ -63,6 +63,7 @@ public class Constantes {
 
         /**
          * Constructeur de la classe des Malus
+         *
          * @param imageNomFichier Chemin vers l'image fichier du Malus
          */
         Malus(String imageNomFichier) {

@@ -4,9 +4,8 @@ import game.Constantes;
 import game.visiteur.Visiteur;
 
 /**
- * 
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Flaque extends Malus {
 
@@ -16,9 +15,10 @@ public class Flaque extends Malus {
     public Flaque() {
         super(Constantes.Malus.Flaque.imageNomFichier);
     }
-    
+
     /**
      * Surcharge de la méthode accepte de la classe Element pour accepter un visiteur
+     *
      * @param v Le visiteur qui va réaliser une visite sur l'élément Flaque
      */
     @Override

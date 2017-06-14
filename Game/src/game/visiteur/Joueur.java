@@ -14,8 +14,8 @@ import javafx.util.Duration;
 
 /**
  * Classe abstraite pour représenter le visiteur en tant que joueur de la partie
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public abstract class Joueur extends Group implements Visiteur {
 
@@ -34,6 +34,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Constructeur de la classe Joueur
+     *
      * @param nom Représente le nom du joueur
      * @param maxVie La vie maximale d'un joueur
      * @param facteurVie Le facteur pour modifier la vie
@@ -63,6 +64,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour obtenir le nom du joueur
+     *
      * @return Le nom du joueur
      */
     public String getNom() {
@@ -71,6 +73,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour obtenir la vie du joueur
+     *
      * @return La vie du joueur
      */
     public int getVie() {
@@ -79,6 +82,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour obtenir le score du joueur
+     *
      * @return Le score du joueur
      */
     public int getScore() {
@@ -86,7 +90,8 @@ public abstract class Joueur extends Group implements Visiteur {
     }
 
     /**
-     * Méthode pour savoir si le  joueur est en vie
+     * Méthode pour savoir si le joueur est en vie
+     *
      * @return Vrai si le joueur est en vie, faux sinon
      */
     public boolean estEnVie() {
@@ -113,6 +118,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour modifier la vie du joueur
+     *
      * @param modif La modification apportée
      */
     public void modifieVie(double modif) {
@@ -140,13 +146,13 @@ public abstract class Joueur extends Group implements Visiteur {
         }
 
         // Definir le texte
-        texteContenu = texteContenu + (int)modif;
+        texteContenu = texteContenu + (int) modif;
         texte.setText(texteContenu);
         texte.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         // Placement du texte
         double textWidth = texte.getBoundsInLocal().getWidth();
-        texte.setX(getX() + imageView.getBoundsInLocal().getWidth()/2.0 - textWidth/2.0);
+        texte.setX(getX() + imageView.getBoundsInLocal().getWidth() / 2.0 - textWidth / 2.0);
         texte.setY(getY() - 10);
 
         // Effet de disparition du texte
@@ -165,6 +171,7 @@ public abstract class Joueur extends Group implements Visiteur {
 
     /**
      * Méthode pour modifier le score du joueur
+     *
      * @param modif La modification apportée
      */
     public void modifieScore(double modif) {

@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * Classe pour représenter l'élément bonus Sandwich
- * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
- * Nathan Gonzalez Montes
+ *
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Sandwich extends Bonus {
 
@@ -19,7 +19,7 @@ public class Sandwich extends Bonus {
      */
     public Sandwich() {
         super(Constantes.Bonus.Sandwich.imageNomFichier);
-        
+
         ingredients = new LinkedList<>();
         ingredients.add(new Pain());
         ingredients.add(new Salade());
@@ -29,6 +29,7 @@ public class Sandwich extends Bonus {
 
     /**
      * Surcharge de la méthode 'accepte' pour accepter un visiteur
+     *
      * @param v Visiteur accepté par l'élement
      */
     @Override

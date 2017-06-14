@@ -13,7 +13,9 @@ import game.element.malus.Voiture;
 import game.visiteur.Godefroy;
 import game.visiteur.Jacquouille;
 import game.visiteur.Joueur;
+
 import java.util.*;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,14 +38,6 @@ import javafx.util.Duration;
  * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Game extends Application {
-    /**
-     * Fonction main du programme
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     private Image background;   // Image de fond du jeu
     private Image welcome;      // Image d'accueil
@@ -154,8 +148,6 @@ public class Game extends Application {
 
         drawScore();
 
-
-
         ImageView welcomeImage = new ImageView(welcome);
         welcomeImage.setFocusTraversable(true);
         welcomeImage.setX(0);
@@ -166,7 +158,6 @@ public class Game extends Application {
         drawScore();
 
         root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant, welcomeImage);
-
 
         obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
 
@@ -210,7 +201,7 @@ public class Game extends Application {
             if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
                 arreterJeu();
             } else {
-                double t = Constantes.GAME_SPEED-2 + Math.log(1 + (secondesEcoulees * 10));
+                double t = Constantes.GAME_SPEED - 2 + Math.log(1 + (secondesEcoulees * 10));
 
                 Iterator<Obstacle> it = obstacles.iterator();
 
@@ -365,6 +356,14 @@ public class Game extends Application {
         }
     }
 
+    /**
+     * Fonction main du programme
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void stop() {
