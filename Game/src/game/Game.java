@@ -16,7 +16,6 @@ import game.visiteur.Joueur;
 
 import java.util.*;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,26 +33,29 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
+ * Classe principale de l'application du jeu
  *
- * @author Gabriel Luthier
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, Nathan Gonzalez Montes
  */
 public class Game extends Application {
 
-    private Image background;
-    private Image icon1;
-    private Image icon2;
-
+    private Image background;   // Image de fond du jeu
+    private Image welcome;      // Image d'accueil
+    private Image icon1;        // Image du premier joueur
+    private Image icon2;        // Image du deuxième joueur
+    /*
+     * Police de l'affichage du score
+     */
     private final Font scoreFont = new Font("Verdana", 16);
     private final Font finalFont = new Font("Verdana", 40);
 
-    private Joueur joueur1;
-    private Joueur joueur2;
+    private Joueur joueur1;             // Le joueur (visiteur) numéro 1 du jeu
+    private Joueur joueur2;             // Le joueur numéro 2 (visiteur) du jeu
 
     private List<Obstacle> obstacles;
 
-
-    private AnimationTimer timer;
-    private boolean gameEnCours = true;
+    private boolean gameEnCours = true; // Booleéen pour savoir si le jeu est en cours
+    private boolean pause = false;      // Dis si le jeu est en pause
 
     private Text scoreJoueur1;
     private Text scoreJoueur2;
@@ -65,8 +67,15 @@ public class Game extends Application {
     private Timeline deplacement;
     Timer creationTimer;
 
+    /**
+     * Surcharge de la méthode starte de la classe Application pour débuter la partie
+     *
+     * @param stage Stage où la fenêtre va s'afficher
+     */
     @Override
     public void start(Stage stage) {
+        pause = true; // met le jeu en pause au début
+        gameEnCours = true;
         root = new Group();
         groupeObstacles = new Group();
 
@@ -83,6 +92,12 @@ public class Game extends Application {
                 Constantes.GAME_WIDTH,
                 Constantes.GAME_HEIGHT,
                 true, true);
+
+        welcome = new Image(
+                getClass().getResource(Constantes.WELCOME_PATH).toString(),
+                Constantes.GAME_WIDTH,
+                Constantes.GAME_HEIGHT,
+                false, true);
 
         icon1 = new Image(
                 getClass().getResource(Constantes.Joueurs.Jacquouille.imageNomFichier).toString(),
@@ -133,7 +148,19 @@ public class Game extends Application {
 
         drawScore();
 
-        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant);
+
+
+        ImageView welcomeImage = new ImageView(welcome);
+        welcomeImage.setFocusTraversable(true);
+        welcomeImage.setX(0);
+        welcomeImage.setY(0);
+        welcomeImage.setFitHeight(Constantes.GAME_HEIGHT);
+        welcomeImage.setFitWidth(Constantes.GAME_WIDTH);
+
+        drawScore();
+
+        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant, welcomeImage);
+
 
         obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
 
@@ -154,6 +181,9 @@ public class Game extends Application {
                     case RIGHT:
                         joueur2.moveRight();
                         break;
+                    case SPACE:
+                        pause = false;
+                        root.getChildren().remove(welcomeImage);
                     default:
                         break;
                 }
@@ -249,10 +279,12 @@ public class Game extends Application {
 
     public void restart(Stage stage) {
         stage.close();
-        gameEnCours = true;
         start(stage);
     }
 
+    /**
+     * Méthode pour intérrompre le jeu
+     */
     public void arreterJeu() {
         deplacement.stop();
         creationTimer.cancel();
@@ -260,7 +292,10 @@ public class Game extends Application {
         afficherScores();
     }
 
-    private void afficherScores() {
+    /**
+     * Méthode qui s'occupe d'afficher le score
+     */
+    public void afficherScores() {
         String gagnant;
         if (!joueur1.estEnVie()) {
             gagnant = joueur2.getNom();
@@ -279,6 +314,9 @@ public class Game extends Application {
         root.getChildren().add(textScore);
     }
 
+    /**
+     * Méthode pour afficher le score du jeu
+     */
     private void drawScore() {
         String joueur1Infos = "Vies: " + joueur1.getVie() + ", score: " + joueur1.getScore();
         String joueur2Infos = "Vies: " + joueur2.getVie() + ", score: " + joueur2.getScore();
@@ -291,6 +329,9 @@ public class Game extends Application {
         o.nouvelleRandomPosition();
     }
 
+    /**
+     * Vérifie la "collision" du joueur avec un des obstacle
+     */
     private void checkCollision() {
         obstacles.forEach((ob) -> {
             checkCollision(ob, joueur1);
@@ -319,6 +360,8 @@ public class Game extends Application {
     }
 
     /**
+     * Fonction main du programme
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

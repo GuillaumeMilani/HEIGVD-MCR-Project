@@ -4,14 +4,23 @@ import game.Constantes;
 import game.visiteur.Visiteur;
 
 /**
- *
- * @author Gabriel Luthier
+ * Classe pour représenter l'élément bonus Toilette
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
+ * Nathan Gonzalez Montes
  */
 public class Toilette extends Bonus {
 
+    /**
+     * Constructeur de la classe Toilette
+     */
     public Toilette() {
         super(Constantes.Bonus.Toilette.imageNomFichier);
     }
+
+    /**
+     * Surcharge de la méthode 'accepte' pour accepter un visiteur
+     * @param v Visiteur accepté par l'élement
+     */
     @Override
     public void accepte(Visiteur v) {
         v.visite(this);

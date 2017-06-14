@@ -4,15 +4,23 @@ import game.Constantes;
 import game.visiteur.Visiteur;
 
 /**
- *
- * @author Gabriel Luthier
+ * Classe pour représenter l'élément bonus Pain
+ * @author Gabriel Luthier, Guillaume Milani, Tony Clavien, Maxime Guillod, 
+ * Nathan Gonzalez Montes
  */
 public class Pain extends SandwichElement {
 
+    /**
+     * Constructeur de la classe Pain
+     */
     public Pain() {
         super(Constantes.Bonus.Pain.imageNomFichier);
     }
 
+    /**
+     * Surcharge de la méthode 'accepte' pour accepter un visiteur
+     * @param v Visiteur accepté par l'élement
+     */
     @Override
     public void accepte(Visiteur v) {
         v.visite(this);
