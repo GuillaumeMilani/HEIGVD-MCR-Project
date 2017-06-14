@@ -55,10 +55,10 @@ public abstract class Joueur extends Group implements Visiteur {
         this.facteurScore = facteurScore;
 
         image = new Image(getClass().getResource(imageNomFichier).toString(),
-                Constantes.CELL_SIZE, Constantes.CELL_SIZE, true, true);
+                Constantes.CELLULE_TAILLE, Constantes.CELLULE_TAILLE, true, true);
         imageView = new ImageView(image);
-        imageView.setX(position * Constantes.CELL_SIZE);
-        imageView.setY(Constantes.GAME_HEIGHT - Constantes.CELL_SIZE);
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
+        imageView.setY(Constantes.JEU_HAUTEUR - Constantes.CELLULE_TAILLE);
         getChildren().add(imageView);
     }
 
@@ -101,19 +101,19 @@ public abstract class Joueur extends Group implements Visiteur {
     /**
      * Déplacement de la position du joueur vers la gauche
      */
-    public void moveLeft() {
+    public void deplaceGauche() {
         int newPosition = position - 1;
         position = newPosition >= 0 ? newPosition : 0;
-        imageView.setX(position * Constantes.CELL_SIZE);
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
     }
 
     /**
      * Déplacement de la position du joueur vers la droite
      */
-    public void moveRight() {
+    public void deplaceDroite() {
         int newPosition = position + 1;
-        position = newPosition < Constantes.NUM_COLS ? newPosition : Constantes.NUM_COLS - 1;
-        imageView.setX(position * Constantes.CELL_SIZE);
+        position = newPosition < Constantes.NBR_COLS ? newPosition : Constantes.NBR_COLS - 1;
+        imageView.setX(position * Constantes.CELLULE_TAILLE);
     }
 
     /**

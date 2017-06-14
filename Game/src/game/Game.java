@@ -39,33 +39,33 @@ import javafx.util.Duration;
  */
 public class Game extends Application {
 
-    private Image background;   // Image de fond du jeu
-    private Image welcome;      // Image d'accueil
-    private Image icon1;        // Image du premier joueur
-    private Image icon2;        // Image du deuxième joueur
+    private Image imgArrirePlan;   // Image de fond du jeu
+    private Image imgRegle;      // Image d'accueil
+    private Image imgIcon1;        // Image du premier joueur
+    private Image imgIcone2;        // Image du deuxième joueur
     /*
      * Police de l'affichage du score
      */
-    private final Font scoreFont = new Font("Verdana", 16);
-    private final Font finalFont = new Font("Verdana", 40);
+    private final Font scorePolice = new Font("Verdana", 16);
+    private final Font finalPolice = new Font("Verdana", 40);
 
     private Joueur joueur1;             // Le joueur (visiteur) numéro 1 du jeu
     private Joueur joueur2;             // Le joueur numéro 2 (visiteur) du jeu
 
     private List<Obstacle> obstacles;
 
-    private boolean gameEnCours = true; // Booleéen pour savoir si le jeu est en cours
+    private boolean jeuEnCours = true; // Booleéen pour savoir si le jeu est en cours
     private boolean pause = false;      // Dis si le jeu est en pause
 
     private Text scoreJoueur1;
     private Text scoreJoueur2;
     private Text tempsRestant;
 
-    private Group root;
+    private Group racine;
     private Group groupeObstacles;
 
     private Timeline deplacement;
-    Timer creationTimer;
+    private Timer creationTimer;
 
     /**
      * Surcharge de la méthode starte de la classe Application pour débuter la partie
@@ -75,120 +75,120 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) {
         pause = true; // met le jeu en pause au début
-        gameEnCours = true;
-        root = new Group();
+        jeuEnCours = true;
+        racine = new Group();
         groupeObstacles = new Group();
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(racine);
 
-        stage.setTitle(Constantes.GAME_TITLE);
+        stage.setTitle(Constantes.JEU_TITRE);
         stage.setScene(scene);
 
         joueur1 = new Jacquouille();
         joueur2 = new Godefroy();
 
-        background = new Image(
-                getClass().getResource(Constantes.BACKGROUND_PATH).toString(),
-                Constantes.GAME_WIDTH,
-                Constantes.GAME_HEIGHT,
+        imgArrirePlan = new Image(
+                getClass().getResource(Constantes.ARRIERE_PLAN_CHEMIN).toString(),
+                Constantes.JEU_LARGEUR,
+                Constantes.JEU_HAUTEUR,
                 true, true);
 
-        welcome = new Image(
-                getClass().getResource(Constantes.WELCOME_PATH).toString(),
-                Constantes.GAME_WIDTH,
-                Constantes.GAME_HEIGHT,
+        imgRegle = new Image(
+                getClass().getResource(Constantes.REGLE_CHEMIN).toString(),
+                Constantes.JEU_LARGEUR,
+                Constantes.JEU_HAUTEUR,
                 false, true);
 
-        icon1 = new Image(
+        imgIcon1 = new Image(
                 getClass().getResource(Constantes.Joueurs.Jacquouille.imageNomFichier).toString(),
-                Constantes.ICON_SIZE,
-                Constantes.ICON_SIZE,
+                Constantes.ICON_TAILLE,
+                Constantes.ICON_TAILLE,
                 false, true);
 
-        icon2 = new Image(
+        imgIcone2 = new Image(
                 getClass().getResource(Constantes.Joueurs.Godefroy.imageNomFichier).toString(),
-                Constantes.ICON_SIZE,
-                Constantes.ICON_SIZE,
+                Constantes.ICON_TAILLE,
+                Constantes.ICON_TAILLE,
                 false, true);
 
-        ImageView backgroundImage = new ImageView(background);
+        ImageView backgroundImage = new ImageView(imgArrirePlan);
         backgroundImage.setFocusTraversable(true);
         backgroundImage.setX(0);
         backgroundImage.setY(0);
-        backgroundImage.setFitHeight(Constantes.GAME_HEIGHT);
-        backgroundImage.setFitWidth(Constantes.GAME_WIDTH);
+        backgroundImage.setFitHeight(Constantes.JEU_HAUTEUR);
+        backgroundImage.setFitWidth(Constantes.JEU_LARGEUR);
 
-        ImageView icon1view = new ImageView(icon1);
+        ImageView icon1view = new ImageView(imgIcon1);
         icon1view.setX(0);
         icon1view.setY(0);
-        ImageView icon2view = new ImageView(icon2);
+        ImageView icon2view = new ImageView(imgIcone2);
         icon2view.setX(0);
-        icon2view.setY(Constantes.ICON_SIZE);
+        icon2view.setY(Constantes.ICON_TAILLE);
 
         scoreJoueur1 = new Text();
         scoreJoueur2 = new Text();
 
-        scoreJoueur1.setFont(scoreFont);
+        scoreJoueur1.setFont(scorePolice);
         scoreJoueur2.setFont(scoreJoueur1.getFont());
 
         scoreJoueur1.setFill(Color.WHITE);
         scoreJoueur2.setFill(scoreJoueur1.getFill());
 
-        scoreJoueur1.setX(Constantes.ICON_SIZE + 5);
-        scoreJoueur1.setY(Constantes.ICON_SIZE - 10);
-        scoreJoueur2.setX(Constantes.ICON_SIZE + 5);
-        scoreJoueur2.setY(2 * Constantes.ICON_SIZE - 10);
+        scoreJoueur1.setX(Constantes.ICON_TAILLE + 5);
+        scoreJoueur1.setY(Constantes.ICON_TAILLE - 10);
+        scoreJoueur2.setX(Constantes.ICON_TAILLE + 5);
+        scoreJoueur2.setY(2 * Constantes.ICON_TAILLE - 10);
 
         tempsRestant = new Text();
         tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES));
-        tempsRestant.setX(Constantes.GAME_WIDTH - 50);
+        tempsRestant.setX(Constantes.JEU_LARGEUR - 50);
         tempsRestant.setY(30);
         tempsRestant.setFill(scoreJoueur1.getFill());
         tempsRestant.setFont(new Font(30));
 
-        drawScore();
+        afficherScore();
 
-        ImageView welcomeImage = new ImageView(welcome);
+        ImageView welcomeImage = new ImageView(imgRegle);
         welcomeImage.setFocusTraversable(true);
         welcomeImage.setX(0);
         welcomeImage.setY(0);
-        welcomeImage.setFitHeight(Constantes.GAME_HEIGHT);
-        welcomeImage.setFitWidth(Constantes.GAME_WIDTH);
+        welcomeImage.setFitHeight(Constantes.JEU_HAUTEUR);
+        welcomeImage.setFitWidth(Constantes.JEU_LARGEUR);
 
-        drawScore();
+        afficherScore();
 
-        root.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant, welcomeImage);
+        racine.getChildren().addAll(backgroundImage, joueur1, joueur2, groupeObstacles, icon1view, icon2view, scoreJoueur1, scoreJoueur2, tempsRestant, welcomeImage);
 
-        obstacles = new ArrayList<>(Constantes.NUM_OBSTACLES);
+        obstacles = new ArrayList<>(Constantes.NBR_OBSTACLES);
 
         Random random = new Random();
 
         scene.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (gameEnCours) {
+            if (jeuEnCours) {
                 switch (event.getCode()) {
                     case A:
-                        joueur1.moveLeft();
+                        joueur1.deplaceGauche();
                         break;
                     case D:
-                        joueur1.moveRight();
+                        joueur1.deplaceDroite();
                         break;
                     case LEFT:
-                        joueur2.moveLeft();
+                        joueur2.deplaceGauche();
                         break;
                     case RIGHT:
-                        joueur2.moveRight();
+                        joueur2.deplaceDroite();
                         break;
                     case SPACE:
                         pause = false;
-                        root.getChildren().remove(welcomeImage);
+                        racine.getChildren().remove(welcomeImage);
                     default:
                         break;
                 }
 
-                checkCollision();
+                testCollisions();
             } else {
-                if (event.getCode() == Constantes.KEY_RESTART) {
-                    restart(stage);
+                if (event.getCode() == Constantes.RESTART_TOUCHE) {
+                    relancer(stage);
                 }
             }
         });
@@ -201,20 +201,20 @@ public class Game extends Application {
             if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
                 arreterJeu();
             } else {
-                double t = Constantes.GAME_SPEED - 2 + Math.log(1 + (secondesEcoulees * 10));
+                double t = Constantes.JEU_VITESSE - 2 + Math.log(1 + (secondesEcoulees * 10));
 
                 Iterator<Obstacle> it = obstacles.iterator();
 
                 while (it.hasNext()) {
                     Obstacle o = it.next();
                     o.setY(o.getY() + t);
-                    if (o.getY() > Constantes.GAME_HEIGHT) {
+                    if (o.getY() > Constantes.JEU_HAUTEUR) {
                         it.remove();
                         Platform.runLater(() -> groupeObstacles.getChildren().remove(o));
                     }
                 }
 
-                checkCollision();
+                testCollisions();
             }
         }));
         deplacement.setCycleCount(Timeline.INDEFINITE);
@@ -274,7 +274,7 @@ public class Game extends Application {
         groupeObstacles.getChildren().add(o);
     }
 
-    public void restart(Stage stage) {
+    public void relancer(Stage stage) {
         stage.close();
         start(stage);
     }
@@ -285,7 +285,7 @@ public class Game extends Application {
     public void arreterJeu() {
         deplacement.stop();
         creationTimer.cancel();
-        gameEnCours = false;
+        jeuEnCours = false;
         afficherScores();
     }
 
@@ -305,16 +305,16 @@ public class Game extends Application {
         Text textScore = new Text();
         textScore.setText(gagnant + " a gagné !");
         textScore.setFill(Color.WHITE);
-        textScore.setFont(finalFont);
-        textScore.setX((Constantes.GAME_WIDTH / 2) - 200);
-        textScore.setY((Constantes.GAME_HEIGHT / 2) - 20);
-        root.getChildren().add(textScore);
+        textScore.setFont(finalPolice);
+        textScore.setX((Constantes.JEU_LARGEUR / 2) - 200);
+        textScore.setY((Constantes.JEU_HAUTEUR / 2) - 20);
+        racine.getChildren().add(textScore);
     }
 
     /**
      * Méthode pour afficher le score du jeu
      */
-    private void drawScore() {
+    private void afficherScore() {
         String joueur1Infos = "Vies: " + joueur1.getVie() + ", score: " + joueur1.getScore();
         String joueur2Infos = "Vies: " + joueur2.getVie() + ", score: " + joueur2.getScore();
 
@@ -329,10 +329,10 @@ public class Game extends Application {
     /**
      * Vérifie la "collision" du joueur avec un des obstacle
      */
-    private void checkCollision() {
+    private void testCollisions() {
         obstacles.forEach((ob) -> {
-            checkCollision(ob, joueur1);
-            checkCollision(ob, joueur2);
+            testCollisions(ob, joueur1);
+            testCollisions(ob, joueur2);
         });
 
         if (!joueur1.estEnVie() || !joueur2.estEnVie()) {
@@ -340,11 +340,11 @@ public class Game extends Application {
         }
     }
 
-    private void checkCollision(Obstacle obstacle, Joueur joueur) {
+    private void testCollisions(Obstacle obstacle, Joueur joueur) {
         if (joueur.getX() == obstacle.getX()
                 && joueur.getY() >= obstacle.getY()
-                && joueur.getY() < obstacle.getY() + Constantes.CELL_SIZE && !obstacle.aEteVisitePar(joueur)) {
-            obstacle.setVisite(joueur);
+                && joueur.getY() < obstacle.getY() + Constantes.CELLULE_TAILLE && !obstacle.aEteVisitePar(joueur)) {
+            obstacle.ajouteVisite(joueur);
             obstacle.accepte(joueur);
             FadeTransition ft = new FadeTransition();
             ft.setNode(obstacle);
@@ -352,7 +352,7 @@ public class Game extends Application {
             ft.setFromValue(1.0);
             ft.setToValue(0.0);
             ft.play();
-            drawScore();
+            afficherScore();
         }
     }
 

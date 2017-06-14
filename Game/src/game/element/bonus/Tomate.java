@@ -14,7 +14,7 @@ public class Tomate extends SandwichElement {
      * Constructeur de la classe Tomate
      */
     public Tomate() {
-        super(Constantes.Bonus.Tomate.imageNomFichier);
+        super(Constantes.Bonus.Tomate.imageChemin);
     }
 
     /**

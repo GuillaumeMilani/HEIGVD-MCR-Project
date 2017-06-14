@@ -25,7 +25,7 @@ public abstract class Obstacle extends ImageView implements Element {
      */
     public Obstacle(String imageNomFichier) {
         image = new Image(getClass().getResource(imageNomFichier).toString(),
-                Constantes.CELL_SIZE, Constantes.CELL_SIZE, true, true);
+                Constantes.CELLULE_TAILLE, Constantes.CELLULE_TAILLE, true, true);
         joueursVisite = new ArrayList<>();
         nouvelleRandomPosition();
         setImage(image);
@@ -46,7 +46,7 @@ public abstract class Obstacle extends ImageView implements Element {
      *
      * @param joueur Le joueur qui fait une visite
      */
-    public void setVisite(Joueur joueur) {
+    public void ajouteVisite(Joueur joueur) {
         joueursVisite.add(joueur);
     }
 
@@ -54,8 +54,8 @@ public abstract class Obstacle extends ImageView implements Element {
      * Méthode pour remettre un obstacle dans le jeu à une position random
      */
     public final void nouvelleRandomPosition() {
-        int position = (int) (Math.random() * Constantes.NUM_COLS);
-        setX(position * Constantes.CELL_SIZE);
-        setY(-(Math.random() * Constantes.GAME_HEIGHT));
+        int position = (int) (Math.random() * Constantes.NBR_COLS);
+        setX(position * Constantes.CELLULE_TAILLE);
+        setY(-(Math.random() * Constantes.JEU_HAUTEUR));
     }
 }

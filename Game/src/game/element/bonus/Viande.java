@@ -14,7 +14,7 @@ public class Viande extends SandwichElement {
      * Constructeur de la classe Viande
      */
     public Viande() {
-        super(Constantes.Bonus.Viande.imageNomFichier);
+        super(Constantes.Bonus.Viande.imageChemin);
     }
 
     /**

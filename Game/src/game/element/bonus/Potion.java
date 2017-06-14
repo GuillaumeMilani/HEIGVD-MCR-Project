@@ -14,7 +14,7 @@ public class Potion extends Bonus {
      * Constructeur de la classe Potion
      */
     public Potion() {
-        super(Constantes.Bonus.Potion.imageNomFichier);
+        super(Constantes.Bonus.Potion.imageChemin);
     }
 
     /**

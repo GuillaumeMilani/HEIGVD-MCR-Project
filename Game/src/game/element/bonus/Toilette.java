@@ -14,7 +14,7 @@ public class Toilette extends Bonus {
      * Constructeur de la classe Toilette
      */
     public Toilette() {
-        super(Constantes.Bonus.Toilette.imageNomFichier);
+        super(Constantes.Bonus.Toilette.imageChemin);
     }
 
     /**

@@ -14,7 +14,7 @@ public class Pain extends SandwichElement {
      * Constructeur de la classe Pain
      */
     public Pain() {
-        super(Constantes.Bonus.Pain.imageNomFichier);
+        super(Constantes.Bonus.Pain.imageChemin);
     }
 
     /**

@@ -18,7 +18,7 @@ public class Sandwich extends Bonus {
      * Constructeur de la classe Sandwich
      */
     public Sandwich() {
-        super(Constantes.Bonus.Sandwich.imageNomFichier);
+        super(Constantes.Bonus.Sandwich.imageChemin);
 
         ingredients = new LinkedList<>();
         ingredients.add(new Pain());
