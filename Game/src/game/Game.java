@@ -179,8 +179,10 @@ public class Game extends Application {
                         joueur2.deplaceDroite();
                         break;
                     case SPACE:
-                        pause = false;
-                        racine.getChildren().remove(welcomeImage);
+                        if (pause) {
+                            pause = false;
+                            racine.getChildren().remove(welcomeImage);
+                        }
                     default:
                         break;
                 }
@@ -200,7 +202,7 @@ public class Game extends Application {
             tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES - secondesEcoulees));
             if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
                 arreterJeu();
-            } else {
+            } else if (!pause) {
                 double t = Constantes.JEU_VITESSE - 2 + Math.log(1 + (secondesEcoulees * 10));
 
                 Iterator<Obstacle> it = obstacles.iterator();
