@@ -200,11 +200,7 @@ public class Game extends Application {
                 Platform.runLater(() -> {
                     int nbObstacles = random.nextInt(10);
                     for (int i = 0; i < nbObstacles; i++) {
-                        if (random.nextBoolean()) {
-                            createRandomBonus(random);
-                        } else {
-                            createRandomMalus(random);
-                        }
+                        createRandomObstacle(random);
                     }
                 });
             }
@@ -213,9 +209,9 @@ public class Game extends Application {
         stage.show();
     }
 
-    public void createRandomBonus(Random random) {
+    public void createRandomObstacle(Random random) {
         Obstacle o;
-        switch (random.nextInt(7)) {
+        switch (random.nextInt(10)) {
             case 0:
                 o = new Potion();
                 break;
@@ -237,20 +233,15 @@ public class Game extends Application {
             case 6:
                 o = new Viande();
                 break;
+            case 7:
+                o = new Flaque();
+                break;
+            case 9:
+                o = new Voiture();
+                break;
             default:
                 o = new Toilette();
                 break;
-        }
-        obstacles.add(o);
-        groupeObstacles.getChildren().add(o);
-    }
-
-    private void createRandomMalus(Random random) {
-        Obstacle o;
-        if (Math.random() < 0.5) {
-            o = initialiseObstacle(new Flaque());
-        } else {
-            o = initialiseObstacle(new Voiture());
         }
         obstacles.add(o);
         groupeObstacles.getChildren().add(o);
@@ -296,24 +287,8 @@ public class Game extends Application {
         scoreJoueur2.setText(joueur2Infos);
     }
 
-    private Obstacle initialiseObstacle(Obstacle o) {
-        while (checkObstacleDejaPresent(o)) {
-            o.nouvelleRandomPosition();
-        }
-
-        return o;
-    }
-
-    private boolean checkObstacleDejaPresent(Obstacle newO) {
-        for (Obstacle ob : obstacles) {
-            if (!ob.equals(newO)
-                    && ob.getX() == newO.getX()
-                    && newO.getY() >= ob.getY()
-                    && newO.getY() < ob.getY() + Constantes.CELL_SIZE) {
-                return true;
-            }
-        }
-        return false;
+    private void initialiseObstacle(Obstacle o) {
+        o.nouvelleRandomPosition();
     }
 
     private void checkCollision() {

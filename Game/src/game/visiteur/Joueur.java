@@ -111,7 +111,7 @@ public abstract class Joueur extends Group implements Visiteur {
         // Definir le texte
         texteContenu = texteContenu + (int)modif;
         texte.setText(texteContenu);
-        texte.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        texte.setFont(Font.font("Arial", FontWeight.BOLD, 30));
 
         // Placement du texte
         double textWidth = texte.getBoundsInLocal().getWidth();
