@@ -182,6 +182,31 @@ public class Game extends Application {
                         if (pause) {
                             pause = false;
                             racine.getChildren().remove(welcomeImage);
+                            final long heureDebut = System.currentTimeMillis();
+
+                            deplacement = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+                                long secondesEcoulees = (System.currentTimeMillis() - heureDebut) / 1000;
+                                tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES - secondesEcoulees));
+                                if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
+                                    arreterJeu();
+                                } else if (!pause) {
+                                    double t = Constantes.JEU_VITESSE - 2 + Math.log(1 + (secondesEcoulees * 10));
+
+                                    Iterator<Obstacle> it = obstacles.iterator();
+
+                                    while (it.hasNext()) {
+                                        Obstacle o = it.next();
+                                        o.setY(o.getY() + t);
+                                        if (o.getY() > Constantes.JEU_HAUTEUR) {
+                                            it.remove();
+                                            Platform.runLater(() -> groupeObstacles.getChildren().remove(o));
+                                        }
+                                    }
+
+                                    testCollisions();
+                                }
+                            }));
+                            deplacement.setCycleCount(Timeline.INDEFINITE);
                             creationTimer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
@@ -206,32 +231,6 @@ public class Game extends Application {
                 }
             }
         });
-
-        final long heureDebut = System.currentTimeMillis();
-
-        deplacement = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-            long secondesEcoulees = (System.currentTimeMillis() - heureDebut) / 1000;
-            tempsRestant.setText(String.valueOf(Constantes.TEMPS_PARTIE_SECONDES - secondesEcoulees));
-            if (secondesEcoulees >= Constantes.TEMPS_PARTIE_SECONDES) {
-                arreterJeu();
-            } else if (!pause) {
-                double t = Constantes.JEU_VITESSE - 2 + Math.log(1 + (secondesEcoulees * 10));
-
-                Iterator<Obstacle> it = obstacles.iterator();
-
-                while (it.hasNext()) {
-                    Obstacle o = it.next();
-                    o.setY(o.getY() + t);
-                    if (o.getY() > Constantes.JEU_HAUTEUR) {
-                        it.remove();
-                        Platform.runLater(() -> groupeObstacles.getChildren().remove(o));
-                    }
-                }
-
-                testCollisions();
-            }
-        }));
-        deplacement.setCycleCount(Timeline.INDEFINITE);
 
         creationTimer = new Timer();
 
