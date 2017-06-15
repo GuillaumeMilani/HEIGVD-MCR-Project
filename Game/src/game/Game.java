@@ -305,12 +305,19 @@ public class Game extends Application {
                     ? joueur1.getNom() : joueur2.getNom();
         }
         Text textScore = new Text();
+        Text texteRecommencer = new Text();
         textScore.setText(gagnant + " a gagné !");
+        texteRecommencer.setText("Presser R pour recommencer");
         textScore.setFill(Color.WHITE);
         textScore.setFont(finalPolice);
-        textScore.setX((Constantes.JEU_LARGEUR / 2) - 200);
+        textScore.setX((Constantes.JEU_LARGEUR / 2) - textScore.getBoundsInLocal().getWidth()/2);
         textScore.setY((Constantes.JEU_HAUTEUR / 2) - 20);
-        racine.getChildren().add(textScore);
+        texteRecommencer.setFill(Color.WHITE);
+        texteRecommencer.setFont(finalPolice);
+        texteRecommencer.setX(Constantes.JEU_LARGEUR/2 - texteRecommencer.getBoundsInLocal().getWidth()/2);
+        texteRecommencer.setY((Constantes.JEU_HAUTEUR / 2) + 20);
+
+        racine.getChildren().addAll(textScore, texteRecommencer);
     }
 
     /**
