@@ -13,7 +13,7 @@ public class Constantes {
 
     public static final int JEU_LARGEUR = 800;  // Largeur de la fenêtre de jeu
     public static final int JEU_HAUTEUR = 600;  // Hauteur de la fenêtre de jeu
-    public static final long JEU_VITESSE = 5;   // 1 = lent, 10 = rapide
+    public static final long JEU_VITESSE = 3;   // 1 = lent, 10 = rapide
     public static final int NBR_COLS = 10;      // Nombre de colones pour les obstacles
     // Taille d'une céllule pour un objet
     public static final double CELLULE_TAILLE = (double) JEU_LARGEUR / (double) NBR_COLS;
