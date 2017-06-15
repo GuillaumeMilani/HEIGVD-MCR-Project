@@ -237,7 +237,7 @@ public class Game extends Application {
         stage.show();
     }
 
-    public void createRandomObstacle(Random random) {
+    private void createRandomObstacle(Random random) {
         Obstacle o;
         switch (random.nextInt(10)) {
             case 0:
@@ -275,7 +275,7 @@ public class Game extends Application {
         groupeObstacles.getChildren().add(o);
     }
 
-    public void relancer(Stage stage) {
+    private void relancer(Stage stage) {
         stage.close();
         start(stage);
     }
@@ -283,7 +283,7 @@ public class Game extends Application {
     /**
      * Méthode pour intérrompre le jeu
      */
-    public void arreterJeu() {
+    private void arreterJeu() {
         deplacement.stop();
         creationTimer.cancel();
         jeuEnCours = false;
@@ -293,7 +293,7 @@ public class Game extends Application {
     /**
      * Méthode qui s'occupe d'afficher le score
      */
-    public void afficherScores() {
+    private void afficherScores() {
         String gagnant;
         if (!joueur1.estEnVie()) {
             gagnant = joueur2.getNom();
