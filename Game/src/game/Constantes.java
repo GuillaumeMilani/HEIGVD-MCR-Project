@@ -90,10 +90,8 @@ public class Constantes {
      */
     public static enum Joueurs {
         Jacquouille("Jacquouille", 100,
-                1, 1.5,
                 2, JACQUOUILLE_CHEMIN),
         Godefroy("Godefroy", 120,
-                1.5, 1,
                 7, GODEFROY_CHEMIN);
 
         public String nom;
@@ -104,12 +102,9 @@ public class Constantes {
         public String imageNomFichier;
 
         private Joueurs(String nom, int maxVie,
-                double facteurVie, double facteurScore,
                 int position, String imageNomFichier) {
             this.nom = nom;
             this.maxVie = maxVie;
-            this.facteurVie = facteurVie;
-            this.facteurScore = facteurScore;
             this.position = position;
             this.imageNomFichier = imageNomFichier;
         }
