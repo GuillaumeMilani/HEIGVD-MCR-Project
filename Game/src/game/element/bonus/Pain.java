@@ -24,6 +24,7 @@ public class Pain extends SandwichElement {
      */
     @Override
     public void accepte(Visiteur v) {
+        visiteurVisite.add(v);
         v.visite(this);
     }
 }

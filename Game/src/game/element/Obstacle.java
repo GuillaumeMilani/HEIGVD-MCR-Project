@@ -4,6 +4,8 @@ import game.Constantes;
 import game.visiteur.Joueur;
 import java.util.ArrayList;
 import java.util.List;
+
+import game.visiteur.Visiteur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,7 +18,7 @@ import javafx.scene.image.ImageView;
 public abstract class Obstacle extends ImageView implements Element {
 
     private final Image image;  // Image de l'obstacle
-    private final List<Joueur> joueursVisite;   // Liste des joueurs visiteurs
+    protected final List<Visiteur> visiteurVisite;   // Liste des joueurs visiteurs
 
     /**
      * Constructeur de la classe Obstacle
@@ -26,28 +28,19 @@ public abstract class Obstacle extends ImageView implements Element {
     public Obstacle(String imageNomFichier) {
         image = new Image(getClass().getResource(imageNomFichier).toString(),
                 Constantes.CELLULE_TAILLE, Constantes.CELLULE_TAILLE, true, true);
-        joueursVisite = new ArrayList<>();
+        visiteurVisite = new ArrayList<>();
         nouvelleRandomPosition();
         setImage(image);
     }
 
     /**
-     * Obstacle visité par un joueur après avoir eu un contact entre les deux
+     * Savoir si un visiteur a deja visite l'obstacle
      *
-     * @param joueur Le joueur qui visite l'obstacle
+     * @param visiteur Le joueur qui visite l'obstacle
      * @return Vrai si le joueur est dans la luste, faux sinon
      */
-    public boolean aEteVisitePar(Joueur joueur) {
-        return joueursVisite.contains(joueur);
-    }
-
-    /**
-     * Rajoute un joueur à la liste de joueurs qui font une visite
-     *
-     * @param joueur Le joueur qui fait une visite
-     */
-    public void ajouteVisite(Joueur joueur) {
-        joueursVisite.add(joueur);
+    public boolean aEteVisitePar(Visiteur visiteur) {
+        return visiteurVisite.contains(visiteur);
     }
 
     /**

@@ -352,7 +352,6 @@ public class Game extends Application {
         if (joueur.getX() == obstacle.getX()
                 && joueur.getY() >= obstacle.getY()
                 && joueur.getY() < obstacle.getY() + Constantes.CELLULE_TAILLE && !obstacle.aEteVisitePar(joueur)) {
-            obstacle.ajouteVisite(joueur);
             obstacle.accepte(joueur);
             FadeTransition ft = new FadeTransition();
             ft.setNode(obstacle);

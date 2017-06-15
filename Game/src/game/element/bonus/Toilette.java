@@ -24,6 +24,7 @@ public class Toilette extends Bonus {
      */
     @Override
     public void accepte(Visiteur v) {
+        visiteurVisite.add(v);
         v.visite(this);
     }
 }

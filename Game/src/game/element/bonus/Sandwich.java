@@ -34,6 +34,7 @@ public class Sandwich extends Bonus {
      */
     @Override
     public void accepte(Visiteur v) {
+        visiteurVisite.add(v);
         ingredients.forEach(i -> i.accepte(v));
     }
 }
