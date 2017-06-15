@@ -26,9 +26,6 @@ public abstract class Joueur extends Group implements Visiteur {
     private int score;          // Le score des joueurs pendant la partie
     private int position;       // La position dans laquelle se trouve le joueur
 
-    private final double facteurVie;    // Facteur pour mmoidifer la vie
-    private final double facteurScore;  // Facteur qui modifie le score du joueur
-
     private final ImageView imageView;
     private final Image image;  // Image qui représente le joueur
 
@@ -37,13 +34,10 @@ public abstract class Joueur extends Group implements Visiteur {
      *
      * @param nom Représente le nom du joueur
      * @param maxVie La vie maximale d'un joueur
-     * @param facteurVie Le facteur pour modifier la vie
-     * @param facteurScore Le facteur pour modifier le score
      * @param position La position du joueur
      * @param imageNomFichier Le chemin vers l'image du fichier
      */
     public Joueur(String nom, int maxVie,
-            double facteurVie, double facteurScore,
             int position, String imageNomFichier) {
         this.nom = nom;
         this.maxVie = maxVie;
@@ -51,8 +45,6 @@ public abstract class Joueur extends Group implements Visiteur {
         estEnVie = true;
         score = 0;
         this.position = position;
-        this.facteurVie = facteurVie;
-        this.facteurScore = facteurScore;
 
         image = new Image(getClass().getResource(imageNomFichier).toString(),
                 Constantes.CELLULE_TAILLE, Constantes.CELLULE_TAILLE, true, true);
@@ -122,7 +114,6 @@ public abstract class Joueur extends Group implements Visiteur {
      * @param modif La modification apportée
      */
     public void modifieVie(double modif) {
-        modif *= facteurVie;
         int vieSupposee = (int) (vie + modif);
         vie = vieSupposee > 0
                 ? (vieSupposee < maxVie
@@ -175,10 +166,7 @@ public abstract class Joueur extends Group implements Visiteur {
      * @param modif La modification apportée
      */
     public void modifieScore(double modif) {
-        modif *= facteurScore;
-        int scoreSuppose = (int) (score + modif);
-        score = scoreSuppose > 0
-                ? scoreSuppose : 0;
+        score = (int) Math.max(0, (score + modif));
     }
 
     public double getX() {

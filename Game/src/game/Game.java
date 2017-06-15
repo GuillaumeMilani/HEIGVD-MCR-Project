@@ -182,6 +182,18 @@ public class Game extends Application {
                         if (pause) {
                             pause = false;
                             racine.getChildren().remove(welcomeImage);
+                            creationTimer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    Platform.runLater(() -> {
+                                        int nbObstacles = random.nextInt(10);
+                                        for (int i = 0; i < nbObstacles; i++) {
+                                            createRandomObstacle(random);
+                                        }
+                                    });
+                                }
+                            }, 0, 1000);
+                            deplacement.play();
                         }
                     default:
                         break;
@@ -220,20 +232,8 @@ public class Game extends Application {
             }
         }));
         deplacement.setCycleCount(Timeline.INDEFINITE);
-        deplacement.play();
 
         creationTimer = new Timer();
-        creationTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    int nbObstacles = random.nextInt(10);
-                    for (int i = 0; i < nbObstacles; i++) {
-                        createRandomObstacle(random);
-                    }
-                });
-            }
-        }, 0, 1000);
 
         stage.show();
     }
