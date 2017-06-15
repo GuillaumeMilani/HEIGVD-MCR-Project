@@ -113,7 +113,7 @@ public abstract class Joueur extends Group implements Visiteur {
      *
      * @param modif La modification apportée
      */
-    private void modifieVie(double modif) {
+    protected void modifieVie(double modif) {
         int vieSupposee = (int) (vie + modif);
         vie = vieSupposee > 0
                 ? (vieSupposee < maxVie
@@ -124,7 +124,7 @@ public abstract class Joueur extends Group implements Visiteur {
         afficheTexte(modif);
     }
 
-    private void afficheTexte(double modif) {
+    protected void afficheTexte(double modif) {
         Text texte = new Text();
         String texteContenu = "";
 
@@ -165,7 +165,7 @@ public abstract class Joueur extends Group implements Visiteur {
      *
      * @param modif La modification apportée
      */
-    private void modifieScore(double modif) {
+    protected void modifieScore(double modif) {
         score = (int) Math.max(0, (score + modif));
     }
 
