@@ -40,8 +40,8 @@ public class Godefroy extends Joueur {
      */
     @Override
     public void visite(Toilette t) {
-        modifieVie(30);
-        modifieScore(200);
+        modifieVie(-20);
+        modifieScore(-100);
     }
 
     /**
@@ -62,8 +62,8 @@ public class Godefroy extends Joueur {
      */
     @Override
     public void visite(Voiture v) {
-        modifieVie(-40);
-        modifieScore(-150);
+        modifieVie(50);
+        modifieScore(150);
     }
 
     /**

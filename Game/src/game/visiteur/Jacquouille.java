@@ -29,8 +29,8 @@ public class Jacquouille extends Joueur {
      */
     @Override
     public void visite(Potion p) {
-        modifieVie(10);
-        modifieScore(100);
+        modifieVie(-10);
+        modifieScore(-80);
     }
 
     /**
@@ -40,8 +40,8 @@ public class Jacquouille extends Joueur {
      */
     @Override
     public void visite(Toilette t) {
-        modifieVie(30);
-        modifieScore(200);
+        modifieVie(50);
+        modifieScore(150);
     }
 
     /**
@@ -51,8 +51,8 @@ public class Jacquouille extends Joueur {
      */
     @Override
     public void visite(Flaque f) {
-        modifieVie(-10);
-        modifieScore(-80);
+        modifieVie(10);
+        modifieScore(100);
     }
 
     /**
@@ -62,8 +62,8 @@ public class Jacquouille extends Joueur {
      */
     @Override
     public void visite(Voiture v) {
-        modifieVie(-40);
-        modifieScore(-150);
+        modifieVie(-20);
+        modifieScore(-100);
     }
 
     /**
